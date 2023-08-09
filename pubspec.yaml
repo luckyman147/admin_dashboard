@@ -80,6 +80,8 @@ flutter:
     - assets/icons/Search.svg
     - assets/icons/18165.jpg
     - assets/icons/menu_notification.svg
+    - assets/icons/modify.svg
+    - assets/icons/delete.svg
   
 
   # An image asset can refer to one or more resolution-specific "variants", see

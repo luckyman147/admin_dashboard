@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:karhabtiapp_dashboard_admin/screens/components/Revenue_Ana.dart';
+import 'package:karhabtiapp_dashboard_admin/screens/components/tableData.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
 // import '../components/barchar.dart';
 // import 'package:google_fonts/google_fonts.dart';
@@ -36,6 +38,55 @@ class _Dashboard_screenState extends State<Dashboard_screen> {
     'Nov',
     'Dec'
   ];
+  List<Map<String, dynamic>> tableData = [
+    {
+      'index': false,
+      'OrderID': "#KA5631",
+      "Date": "04 September 2023",
+      "User Name": "Nelson Mandela",
+      "User Profile": "B2B",
+      "Total": "2000",
+      "Payment Status": "Paid",
+    },
+    {
+      'index': true,
+      'OrderID': "#KA5771",
+      "Date": "04 october 2023",
+      "User Name": "Bob Marley",
+      "User Profile": "B2C",
+      "Total": "200",
+      "Payment Status": "Unpaid",
+    },
+    {
+      'index': true,
+      'OrderID': "#KA5971",
+      "Date": "04 Juillet 2023",
+      "User Name": "Micheal Jackson",
+      "User Profile": "B2B",
+      "Total": "100",
+      "Payment Status": "Change Back",
+    },
+    {
+      'index': false,
+      'OrderID': "#KA5631",
+      "Date": "04 September 2023",
+      "User Name": "Nelson Mandela",
+      "User Profile": "B2B",
+      "Total": "2000",
+      "Payment Status": "Paid",
+    },
+    {
+      'index': false,
+      'OrderID': "#KA5631",
+      "Date": "04 September 2023",
+      "User Name": "Nelson Mandela",
+      "User Profile": "B2B",
+      "Total": "2000",
+      "Payment Status": "Paid",
+    },
+
+    // Add more data as needed
+  ];
   List<String> year = ['Today', "Week", "Month", "Year"];
   @override
   Widget build(BuildContext context) {
@@ -69,51 +120,7 @@ class _Dashboard_screenState extends State<Dashboard_screen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Expanded(
-                                  flex: 3,
-                                  child: Container(
-                                      decoration: box,
-                                      height: 500,
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: 18, horizontal: 20),
-                                        child: SingleChildScrollView(
-                                          child: Column(
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    "Revenue Analytics",
-                                                    style: TextStyle(
-                                                        fontSize: 18,
-                                                        fontFamily: GoogleFonts
-                                                            .plusJakartaSansTextTheme
-                                                            .toString(),
-                                                        color: black,
-                                                        fontWeight:
-                                                            FontWeight.w500),
-                                                  ),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      elebutton("Today", () {}),
-                                                      elebutton(
-                                                          "Weekly", () {}),
-                                                      elebutton(
-                                                          "Monthly", () {}),
-                                                    ],
-                                                  )
-                                                ],
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ))),
+                              const Expanded(flex: 3, child: Revenue()),
                               const SizedBox(
                                 width: 10,
                               ),
@@ -128,36 +135,41 @@ class _Dashboard_screenState extends State<Dashboard_screen> {
                             padding: const EdgeInsets.symmetric(
                                 vertical: defaultPadding),
                             child: Container(
-                              height: 400,
+                              height: 430,
                               decoration: box,
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
-                                    vertical: 18.0, horizontal: 22),
+                                    vertical: 18.0, horizontal: 10),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "Recent Transactions",
+                                            style: TextStyle(
+                                                fontFamily: styletext,
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.w500,
+                                                color: black),
+                                          ),
+                                          searchline()
+                                        ],
+                                      ),
+                                    ),
+                                    Tabled(tableData: tableData),
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
-                                        Text(
-                                          "Recent Transactions",
-                                          style: TextStyle(
-                                              fontFamily: styletext,
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.w500,
-                                              color: black),
-                                        ),
-                                        Row(
-                                          children: [
-                                            Container(
-                                                width: 120,
-                                                decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                        color: primaryColor)),
-                                                child: NewTextField()),
-                                          ],
-                                        )
+                                        elevatedNE("Previous", () {}),
+                                        elevatedNUmber("1", () {}, true),
+                                        elevatedNUmber("2", () {}, false),
+                                        elevatedNE("Next", () {}),
                                       ],
                                     )
                                   ],
@@ -176,21 +188,82 @@ class _Dashboard_screenState extends State<Dashboard_screen> {
     );
   }
 
-  Padding elebutton(String name, VoidCallback funct) {
+  Padding elevatedNE(String text, VoidCallback action) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 7.0),
+      padding: const EdgeInsets.symmetric(horizontal: 4.0),
       child: ElevatedButton(
-        onPressed: funct,
-        style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
-        child: Text(
-          name,
-          style: TextStyle(
-              fontFamily: GoogleFonts.poppinsTextTheme.toString(),
-              fontSize: 16,
-              color: black,
-              fontWeight: FontWeight.w500),
+          style: ElevatedButton.styleFrom(
+              fixedSize: Size(88, 36),
+              shadowColor: bgColor,
+              elevation: 1,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4)),
+              backgroundColor: bgColor),
+          onPressed: action,
+          child: Text(
+            text,
+            style: TextStyle(
+                fontFamily: GoogleFonts.plusJakartaSansTextTheme.toString(),
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                color: BABABA),
+          )),
+    );
+  }
+
+  Padding elevatedNUmber(String text, VoidCallback action, bool isActtive) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+      child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+              fixedSize: Size(40, 36),
+              shadowColor: bgColor,
+              elevation: 1,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4)),
+              backgroundColor: isActtive ? secondaryColor : bgColor),
+          onPressed: action,
+          child: Text(
+            text,
+            style: TextStyle(
+                fontFamily: GoogleFonts.plusJakartaSansTextTheme.toString(),
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                color: BABABA),
+          )),
+    );
+  }
+
+  Row searchline() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 3.0),
+          child: Container(
+              width: 120,
+              height: 45,
+              decoration:
+                  BoxDecoration(border: Border.all(color: primaryColor)),
+              child: NewTextField()),
         ),
-      ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Container(
+              height: 45,
+              decoration:
+                  BoxDecoration(border: Border.all(color: primaryColor)),
+              child: DRopdownMethod("ALL", options)),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 3.0),
+          child: Container(
+              height: 45,
+              decoration:
+                  BoxDecoration(border: Border.all(color: primaryColor)),
+              child: DRopdownMethod("2022", ["2022", "2023"])),
+        ),
+      ],
     );
   }
 

@@ -19,7 +19,7 @@ class _SalesState extends State<SalesANA> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 400,
+      height: 490,
       decoration: box,
       child: SingleChildScrollView(
         child: Padding(
@@ -58,7 +58,7 @@ class _SalesState extends State<SalesANA> {
               sales("Appointement", 45, secondaryColor),
               sales("Drivers Subscription", 50, pourcentage),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                padding: const EdgeInsets.symmetric(vertical: 50.0),
                 child: SizedBox(
                     height: 200,
                     child: PieChart(PieChartData(sectionsSpace: 4, sections: [

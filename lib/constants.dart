@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 const bgColor = Colors.white;
 const black = Colors.black;
 const textColor = Color.fromRGBO(160, 160, 160, 1);
+const BABABA = Color.fromRGBO(186, 186, 186, 1);
+const checkColor = Color.fromRGBO(132, 116, 116, 1);
 const secondaryColor = Color.fromRGBO(35, 64, 120, 1);
 const primaryColor = Color.fromRGBO(236, 236, 249, 1);
 const defaultPadding = 16.0;
@@ -23,3 +25,13 @@ final box = BoxDecoration(
   ],
 );
 final styletext = GoogleFonts.plusJakartaSansTextTheme.toString();
+final column = TextStyle(
+    fontFamily: GoogleFonts.poppins.toString(),
+    fontSize: 12,
+    fontWeight: FontWeight.w600,
+    color: black);
+final columnRO = TextStyle(
+    fontFamily: GoogleFonts.poppins.toString(),
+    fontSize: 12,
+    fontWeight: FontWeight.w500,
+    color: black);

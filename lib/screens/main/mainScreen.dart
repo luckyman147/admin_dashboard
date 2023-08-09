@@ -32,12 +32,16 @@ class MainScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            DrawerHeader(
+            Container(
+              height: 100,
+              margin: EdgeInsets.all(23),
+              padding: EdgeInsets.symmetric(horizontal: 1, vertical: 4),
               child: Center(
                 child: Image.asset(
                   "assets/img/karhaba.png",
-                  height: 120,
                   fit: BoxFit.contain,
+                  height: 100,
+                  width: 100,
                 ),
               ),
             ),
