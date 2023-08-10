@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:karhabtiapp_dashboard_admin/screens/main/Application.dart';
 import 'package:karhabtiapp_dashboard_admin/screens/main/mainScreen.dart';
 import 'constants.dart';
 
@@ -20,7 +21,7 @@ class MainApp extends StatelessWidget {
           canvasColor: primaryColor,
           textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
               .apply(bodyColor: Colors.white)),
-      home: MainScreen(),
+      home: Subs(),
     );
   }
 }

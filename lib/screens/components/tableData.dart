@@ -4,7 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../constants.dart';
 
 class Tabled extends StatefulWidget {
-  Tabled({required this.tableData});
+  Tabled({required this.tableData, required this.space});
+  double space;
   List<Map<String, dynamic>> tableData;
   @override
   State<Tabled> createState() => _TabledState();
@@ -20,9 +21,13 @@ class _TabledState extends State<Tabled> {
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: DataTable(
+            border: TableBorder(
+                horizontalInside:
+                    BorderSide(color: rox, style: BorderStyle.solid, width: 1)),
+            showBottomBorder: true,
             // sortAscending: true,
 
-            columnSpacing: 44,
+            columnSpacing: widget.space,
             dividerThickness: 3,
             showCheckboxColumn: false,
             horizontalMargin: 12,

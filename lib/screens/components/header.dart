@@ -5,8 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../constants.dart';
 
 class Header extends StatelessWidget {
-  const Header({super.key});
-
+  final String text;
+  Header({required this.text});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,7 +19,7 @@ class Header extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              "Dashboard",
+              text,
               style: TextStyle(
                   color: Colors.black,
                   fontSize: 31,
