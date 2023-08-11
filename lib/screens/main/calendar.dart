@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:karhabtiapp_dashboard_admin/screens/dahsboard/email_screen.dart';
 import 'package:karhabtiapp_dashboard_admin/screens/dahsboard/users.dart';
 
 import '../../constants.dart';
 import '../../responsive.dart';
 import '../components/Draweer.dart';
 import '../components/header.dart';
+import '../dahsboard/calendar_screen.dart';
 import '../dahsboard/subs/SUbs_screen.dart';
 
-class Subs extends StatefulWidget {
-  const Subs({required this.isActive, super.key});
-  final bool isActive;
+class Calendar extends StatefulWidget {
+  const Calendar({super.key});
+
   @override
-  State<Subs> createState() => _SubsState();
+  State<Calendar> createState() => _CalendarState();
 }
 
-class _SubsState extends State<Subs> {
+class _CalendarState extends State<Calendar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +26,7 @@ class _SubsState extends State<Subs> {
       children: [
         if (Responsive.isDesktop(context))
           Expanded(
-            child: Draweer(page: 2, isActive: widget.isActive),
+            child: Draweer(page: 4, isActive: false),
           ),
         Expanded(
             flex: 5,
@@ -33,14 +35,15 @@ class _SubsState extends State<Subs> {
                 child: Column(
                   children: [
                     Header(
-                      text: widget.isActive?"Subscriptions":"Users",
+                      text: 'Calendar',
                     ),
                     SizedBox(
-                        height: defaultPadding,
-                        child: Container(
-                          color: primaryColor,
-                        )),
-                   widget.isActive? Subs_screen(): User_screen(),
+                      height: defaultPadding,
+                      child: Container(
+                        color: primaryColor,
+                      ),
+                    ),
+                    Calendar_screen(),
                   ],
                 ),
               ),

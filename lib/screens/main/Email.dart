@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:karhabtiapp_dashboard_admin/screens/dahsboard/email_screen.dart';
 import 'package:karhabtiapp_dashboard_admin/screens/dahsboard/users.dart';
 
 import '../../constants.dart';
@@ -7,14 +8,14 @@ import '../components/Draweer.dart';
 import '../components/header.dart';
 import '../dahsboard/subs/SUbs_screen.dart';
 
-class Subs extends StatefulWidget {
-  const Subs({required this.isActive, super.key});
-  final bool isActive;
+class Email extends StatefulWidget {
+  const Email({super.key});
+
   @override
-  State<Subs> createState() => _SubsState();
+  State<Email> createState() => _EmailState();
 }
 
-class _SubsState extends State<Subs> {
+class _EmailState extends State<Email> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +25,7 @@ class _SubsState extends State<Subs> {
       children: [
         if (Responsive.isDesktop(context))
           Expanded(
-            child: Draweer(page: 2, isActive: widget.isActive),
+            child: Draweer(page: 3, isActive: false),
           ),
         Expanded(
             flex: 5,
@@ -33,14 +34,15 @@ class _SubsState extends State<Subs> {
                 child: Column(
                   children: [
                     Header(
-                      text: widget.isActive?"Subscriptions":"Users",
-                    ),
-                    SizedBox(
-                        height: defaultPadding,
-                        child: Container(
-                          color: primaryColor,
-                        )),
-                   widget.isActive? Subs_screen(): User_screen(),
+                text: 'Email',
+              ),
+              SizedBox(
+                height: defaultPadding,
+                child: Container(
+                  color: primaryColor,
+                ),
+              ),
+                    Email_screen(),
                   ],
                 ),
               ),

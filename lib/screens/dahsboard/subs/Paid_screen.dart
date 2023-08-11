@@ -6,6 +6,7 @@ import 'package:karhabtiapp_dashboard_admin/screens/main/Application.dart';
 import '../../../constants.dart';
 import '../../buttons/dropdownbutton.dart';
 import '../../components/header.dart';
+import '../../components/pres.dart';
 
 class Subs_screen extends StatefulWidget {
   const Subs_screen({super.key});
@@ -108,12 +109,7 @@ class _Subs_screenState extends State<Subs_screen> {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              buttonBar("All Subscriptions", active, () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Subs()));
-                              }),
+                              buttonBar("All Subscriptions", active, () {}),
                               buttonBar("Paid", active2, () {}),
                               buttonBar("Unpaid", active3, () {}),
                             ],
@@ -130,7 +126,7 @@ class _Subs_screenState extends State<Subs_screen> {
                                     "Show",
                                     style: row,
                                   ),
-                                  press(num),
+                                  press(),
                                   Text(
                                     "Rows",
                                     style: row,
@@ -190,66 +186,6 @@ class _Subs_screenState extends State<Subs_screen> {
                   ),
                 )),
           ],
-        ),
-      ),
-    );
-  }
-
-  Padding press(int num) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Container(
-        width: 65,
-        height: 47,
-        decoration: BoxDecoration(border: Border.all(color: primaryColor)),
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Text(
-                    "${num}",
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontFamily: styletext,
-                        color: black,
-                        fontWeight: FontWeight.w500),
-                  )),
-              Expanded(
-                child: ListView(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            num++;
-                          });
-                        },
-                        child: Icon(
-                          Icons.arrow_drop_up,
-                          color: black,
-                          size: 15,
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          setState(() {
-                            num--;
-                          });
-                        },
-                        child: Icon(
-                          Icons.arrow_drop_down,
-                          color: black,
-                          size: 15,
-                        ),
-                      ),
-                    ]),
-              ),
-            ],
-          ),
         ),
       ),
     );

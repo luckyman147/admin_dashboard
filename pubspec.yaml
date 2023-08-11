@@ -83,6 +83,10 @@ flutter:
     - assets/icons/modify.svg
     - assets/icons/delete.svg
     - assets/icons/plus.svg
+    - assets/icons/arrow_top.svg
+    - assets/icons/arrow_bottom.svg
+    - assets/icons/Edit.svg
+    - assets/icons/sent.svg
     
   
 

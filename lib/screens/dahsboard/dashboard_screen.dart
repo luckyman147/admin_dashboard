@@ -91,108 +91,86 @@ class _Dashboard_screenState extends State<Dashboard_screen> {
   List<String> year = ['Today', "Week", "Month", "Year"];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          // padding: EdgeInsets.all(defaultPadding),
-
-          child: Column(
-            children: [
-              Header(
-                text: "Dashboard",
-              ),
-              SizedBox(
-                height: defaultPadding,
-                child: Container(
-                  color: primaryColor,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(flex: 2, child: LeftSide()),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Expanded(
-                        flex: 5,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(flex: 2, child: LeftSide()),
+          const SizedBox(
+            width: 20,
+          ),
+          Expanded(
+              flex: 5,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Expanded(flex: 3, child: Revenue()),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                          child: Container(
+                              height: 500,
+                              decoration: box,
+                              child: const Earn()))
+                    ],
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: defaultPadding),
+                    child: Container(
+                      height: 430,
+                      decoration: box,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 18.0, horizontal: 10),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Expanded(flex: 3, child: Revenue()),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Expanded(
-                                    child: Container(
-                                        height: 500,
-                                        decoration: box,
-                                        child: const Earn()))
-                              ],
-                            ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: defaultPadding),
-                              child: Container(
-                                height: 430,
-                                decoration: box,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 18.0, horizontal: 10),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 10.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              "Recent Transactions",
-                                              style: TextStyle(
-                                                  fontFamily: styletext,
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: black),
-                                            ),
-                                            searchline()
-                                          ],
-                                        ),
-                                      ),
-                                      Tabled(
-                                        tableData: tableData,
-                                        space: 44,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          elevatedNE("Previous", () {}),
-                                          elevatedNUmber("1", () {}, true),
-                                          elevatedNUmber("2", () {}, false),
-                                          elevatedNE("Next", () {}),
-                                        ],
-                                      )
-                                    ],
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Recent Transactions",
+                                    style: TextStyle(
+                                        fontFamily: styletext,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500,
+                                        color: black),
                                   ),
-                                ),
+                                  searchline()
+                                ],
                               ),
+                            ),
+                            Tabled(
+                              tableData: tableData,
+                              space: 44,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                elevatedNE("Previous", () {}),
+                                elevatedNUmber("1", () {}, true),
+                                elevatedNUmber("2", () {}, false),
+                                elevatedNE("Next", () {}),
+                              ],
                             )
                           ],
-                        ))
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ))
+        ],
       ),
     );
   }

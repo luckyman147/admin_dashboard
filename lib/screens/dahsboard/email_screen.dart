@@ -1,83 +1,75 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:karhabtiapp_dashboard_admin/screens/components/tableData.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:karhabtiapp_dashboard_admin/screens/components/tableDataEmail.dart';
 
-import '../../../constants.dart';
-import '../../buttons/dropdownbutton.dart';
-import '../../components/header.dart';
-import '../../components/pres.dart';
+import '../../constants.dart';
+import '../buttons/dropdownbutton.dart';
+import '../components/pres.dart';
+import '../components/tableDataUsers.dart';
 
-class Subs_screen extends StatefulWidget {
-  const Subs_screen({super.key});
+class Email_screen extends StatefulWidget {
+  const Email_screen({super.key});
 
   @override
-  State<Subs_screen> createState() => _Subs_screenState();
+  State<Email_screen> createState() => _Email_screenState();
 }
 
-class _Subs_screenState extends State<Subs_screen> {
+class _Email_screenState extends State<Email_screen> {
+  List<String> options = ['ALL', 'B2C', 'B2B'];
+
   @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> tableData = [
-      {
-        'index': false,
-        'OrderID': "#KA5631",
-        "Date": "04 September 2023",
-        "User Name": "Nelson Mandela",
-        "User Profile": "B2B",
-        "Total": "2000",
-        "Payment Status": "Paid",
-      },
-      {
-        'index': true,
-        'OrderID': "#KA5771",
-        "Date": "04 october 2023",
-        "User Name": "Bob Marley",
-        "User Profile": "B2C",
-        "Total": "200",
-        "Payment Status": "Unpaid",
-      },
-      {
-        'index': true,
-        'OrderID': "#KA5971",
-        "Date": "04 Juillet 2023",
-        "User Name": "Micheal Jackson",
-        "User Profile": "B2B",
-        "Total": "100",
-        "Payment Status": "Change Back",
-      },
-      {
-        'index': false,
-        'OrderID': "#KA5631",
-        "Date": "04 September 2023",
-        "User Name": "Nelson Mandela",
-        "User Profile": "B2B",
-        "Total": "2000",
-        "Payment Status": "Paid",
-      },
-      {
-        'index': false,
-        'OrderID': "#KA5631",
-        "Date": "04 September 2023",
-        "User Name": "Nelson Mandela",
-        "User Profile": "B2B",
-        "Total": "2000",
-        "Payment Status": "Paid",
-      }
-    ];
-    List<Map<String, dynamic>> filterByUserProfile(
-        List<Map<String, dynamic>> inputList, String filter) {
-      return inputList.where((map) => map['User Profile'] == filter).toList();
-    }
-
     bool active = true;
     bool active2 = false;
-    List<String> options = ['ALL', 'B2C', 'B2B'];
-    int num = 5;
     bool active3 = false;
+    final tableEmail = [
+      {
+        "index": false,
+        "Email": "John Doe",
+        "Message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+        "Description": "Lorem ipsum  ",
+        "Date": "12 Janvier",
+        "read": false
+      },
+      {
+        "index": false,
+        "Email": "John Doe",
+        "Message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+        "Description": "Lorem ipsum  ",
+        "Date": "12 Janvier",
+        "read": false
+      },
+      {
+        "index": false,
+        "Email": "John Doe",
+        "Message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+        "Description": "Lorem ipsum  ",
+        "Date": "12 Janvier",
+        "read": true
+      },
+      {
+        "index": true,
+        "Email": "John Doe",
+        "Message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+        "Description": "Lorem ipsum  ",
+        "Date": "12 Janvier",
+        "read": true
+      },
+      {
+        "index": false,
+        "Email": "John Doe",
+        "Message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+        "Description": "Lorem ipsum  ",
+        "Date": "12 Janvier",
+        "read": true
+      },
+    ];
+
+    final media = MediaQuery.sizeOf(context);
     return Padding(
         padding: const EdgeInsets.all(30.0),
         child: Container(
-          height: 600,
+          height: 750,
           decoration: box,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 10),
@@ -91,9 +83,9 @@ class _Subs_screenState extends State<Subs_screen> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      buttonBar("All Subscriptions", active, () {}),
-                      buttonBar("Paid", active2, () {}),
-                      buttonBar("Unpaid", active3, () {}),
+                      buttonBar("Inbox", active, () {}),
+                      buttonBar("Sent", active2, () {}),
+                      buttonBar("Favorites", active3, () {}),
                     ],
                   ),
                 ),
@@ -112,6 +104,12 @@ class _Subs_screenState extends State<Subs_screen> {
                           Text(
                             "Rows",
                             style: row,
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 40.0),
+                            child: addThing(
+                                "New Message", "assets/icons/Edit.svg", () {}),
                           ),
                         ],
                       ),
@@ -143,18 +141,21 @@ class _Subs_screenState extends State<Subs_screen> {
                     ],
                   ),
                 ),
-                Tabled(
-                  tableData: tableData,
-                  space: 90,
+                TableEmail(
+                  tableData: tableEmail,
+                  space: media.width * .017,
+                  height: media.height * .092,
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20.0),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 20.0, horizontal: 70),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       elevatedNE("Previous", () {}),
                       elevatedNUmber("1", () {}, true),
                       elevatedNUmber("2", () {}, false),
+                      elevatedNUmber("3", () {}, false),
                       elevatedNE("Next", () {}),
                     ],
                   ),

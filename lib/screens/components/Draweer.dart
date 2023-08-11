@@ -169,8 +169,9 @@ class _DraweerState extends State<Draweer> {
       required VoidCallback press,
       bool isactive = false}) {
     return AnimatedContainer(
-      padding: EdgeInsets.all(4.0),
-      margin: EdgeInsets.all(3),
+      // width: title.length * 30,
+      padding: EdgeInsets.all(12.0),
+      margin: EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(21),
           color: widget.page == numpage ? secondaryColor : bgColor),
@@ -225,7 +226,9 @@ class _DraweerState extends State<Draweer> {
       required VoidCallback press,
       bool isactive = false}) {
     return AnimatedContainer(
-      padding: EdgeInsets.all(4.0),
+      width: title.length * 30,
+      padding: EdgeInsets.all(12.0),
+      margin: EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(21),
           color: widget.page == numpage ? secondaryColor : bgColor),

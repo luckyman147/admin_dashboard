@@ -5,6 +5,7 @@ import 'package:karhabtiapp_dashboard_admin/responsive.dart';
 
 import '../../constants.dart';
 import '../components/Draweer.dart';
+import '../components/header.dart';
 import '../dahsboard/dashboard_screen.dart';
 
 class MainScreen extends StatelessWidget {
@@ -22,7 +23,25 @@ class MainScreen extends StatelessWidget {
           Expanded(
             child: Draweer(page: 1, isActive: false),
           ),
-        Expanded(flex: 5, child: Dashboard_screen()),
+        Expanded(
+            flex: 5,
+            child: SafeArea(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Header(
+                      text: 'Dashboard',
+                    ),
+                    SizedBox(
+                        height: defaultPadding,
+                        child: Container(
+                          color: primaryColor,
+                        )),
+                    Dashboard_screen(),
+                  ],
+                ),
+              ),
+            )),
       ],
     )));
   }
