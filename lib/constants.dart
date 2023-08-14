@@ -10,6 +10,7 @@ const checkColor = Color.fromRGBO(132, 116, 116, 1);
 const secondaryColor = Color.fromRGBO(35, 64, 120, 1);
 const primaryColor = Color.fromRGBO(236, 236, 249, 1);
 const defaultPadding = 16.0;
+const red = Color.fromRGBO(255, 30, 30, 1);
 const rox = Color.fromRGBO(223, 223, 223, 1);
 const yellow = Color.fromRGBO(250, 186, 0, 1);
 const thirdcolor = Color.fromRGBO(228, 225, 225, 1);
@@ -78,10 +79,10 @@ Container buttonBar(String text, bool active, VoidCallback press) {
             : BorderSide(color: Colors.white), // Add left border
       ),
     ),
-    child: ElevatedButton(
-      style: ButtonStyle(
-        elevation: MaterialStateProperty.all(0),
-        backgroundColor: MaterialStateProperty.all(Colors.white),
+    child: TextButton(
+      style: TextButton.styleFrom(
+        backgroundColor: Colors.white,
+        elevation: 0,
       ),
       onPressed: press,
       child: Padding(
@@ -112,6 +113,7 @@ Container CalendBar(String text, bool active, VoidCallback press) {
     ),
     child: TextButton(
       style: TextButton.styleFrom(
+        maximumSize: Size(170, 100),
         elevation: 0,
         backgroundColor: (Colors.white),
       ),

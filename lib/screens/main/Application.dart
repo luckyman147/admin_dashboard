@@ -33,14 +33,14 @@ class _SubsState extends State<Subs> {
                 child: Column(
                   children: [
                     Header(
-                      text: widget.isActive?"Subscriptions":"Users",
+                      text: widget.isActive ? "Subscriptions" : "Users",
                     ),
                     SizedBox(
                         height: defaultPadding,
                         child: Container(
                           color: primaryColor,
                         )),
-                   widget.isActive? Subs_screen(): User_screen(),
+                    widget.isActive ? Subs_screen() : User_screen(),
                   ],
                 ),
               ),

@@ -96,7 +96,9 @@ class Header extends StatelessWidget {
               fontFamily: GoogleFonts.plusJakartaSans.toString(),
               color: Color.fromARGB(255, 104, 104, 104),
               fontWeight: FontWeight.w400),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+              borderSide: BorderSide(color: primaryColor)),
           suffixIcon: InkWell(
             onTap: () {},
             child: Container(

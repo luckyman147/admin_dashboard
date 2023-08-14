@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import '../../constants.dart';
+import '../../provider/boolStates.dart';
+import '../main/Email.dart';
 
 class Draweer extends StatefulWidget {
   const Draweer({required this.page, required this.isActive, super.key});
@@ -16,6 +19,8 @@ class _DraweerState extends State<Draweer> {
   @override
   Widget build(BuildContext context) {
     bool IsApp = false;
+    final boolProvider = Provider.of<BooleanStatesProvider>(context);
+
     final deviceSize = MediaQuery.of(context).size;
 
     return AnimatedContainer(
@@ -53,16 +58,17 @@ class _DraweerState extends State<Draweer> {
                   numpage: 2,
                   svgsrc: "assets/icons/app.svg",
                   press: () {
-                    setState(() {
-                      IsApp = !IsApp;
-                    });
+                    if (boolProvider.isActive == false) {
+                      boolProvider.activate();
+                    } else {
+                      boolProvider.deactivate();
+                    }
+                    print(boolProvider.isActive);
                   },
                   isactive: widget.page == 2),
-              (widget.page == 2)
-                  ? AnimatedContainer(
-                      duration: Duration(
-                        milliseconds: 500,
-                      ),
+              (boolProvider.isActive)
+                  ? Card(
+                      elevation: 0,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,7 +89,9 @@ class _DraweerState extends State<Draweer> {
                   title: "Email",
                   numpage: 3,
                   svgsrc: "assets/icons/email.svg",
-                  press: () {},
+                  press: () {
+                    Navigator.of(context).push(_createRoute());
+                  },
                   isactive: widget.page == 3),
               DrawerListTile(
                   title: "Calendar",
@@ -159,6 +167,23 @@ class _DraweerState extends State<Draweer> {
               )),
         ],
       ),
+    );
+  }
+
+  PageRouteBuilder _createRoute() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => Email(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(1.0, 0.0);
+        const end = Offset.zero;
+        const curve = Curves.easeInOut;
+        final tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        final offsetAnimation = animation.drive(tween);
+
+        return SlideTransition(position: offsetAnimation, child: child);
+      },
     );
   }
 

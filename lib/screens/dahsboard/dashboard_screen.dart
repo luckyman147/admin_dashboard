@@ -153,6 +153,7 @@ class _Dashboard_screenState extends State<Dashboard_screen> {
                             Tabled(
                               tableData: tableData,
                               space: 44,
+                              number: 5,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,

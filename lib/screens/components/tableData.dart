@@ -4,8 +4,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../constants.dart';
 
 class Tabled extends StatefulWidget {
-  Tabled({required this.tableData, required this.space});
+  Tabled(
+      {super.key,
+      required this.tableData,
+      required this.space,
+      required this.number});
   double space;
+  final int number;
   List<Map<String, dynamic>> tableData;
   @override
   State<Tabled> createState() => _TabledState();
@@ -54,7 +59,9 @@ class _TabledState extends State<Tabled> {
               DataColumn(label: Text('Actions', style: column)),
             ],
             rows: List<DataRow>.generate(
-                widget.tableData.length,
+                widget.number > widget.tableData.length
+                    ? widget.tableData.length
+                    : widget.number,
                 (index) => DataRow(cells: [
                       DataCell(check(widget.tableData[index]['index'])),
                       DataCell(Text(
