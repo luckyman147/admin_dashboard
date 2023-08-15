@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:karhabtiapp_dashboard_admin/provider/NumberProvider.dart';
+import 'package:karhabtiapp_dashboard_admin/screens/main/Application.dart';
+import 'package:karhabtiapp_dashboard_admin/screens/main/mainScreen.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants.dart';
 import '../../provider/boolStates.dart';
 import '../main/Email.dart';
+import '../main/calendar.dart';
+
+enum SlideTransitionType {
+  slideInRight,
+  // Add more transition types here if needed
+}
 
 class Draweer extends StatefulWidget {
   const Draweer({required this.page, required this.isActive, super.key});
-  final isActive;
+  final int isActive;
   final int page;
   @override
   State<Draweer> createState() => _DraweerState();
@@ -20,6 +29,7 @@ class _DraweerState extends State<Draweer> {
   Widget build(BuildContext context) {
     bool IsApp = false;
     final boolProvider = Provider.of<BooleanStatesProvider>(context);
+    final numberprovider = Provider.of<NumberProvider>(context);
 
     final deviceSize = MediaQuery.of(context).size;
 
@@ -51,7 +61,9 @@ class _DraweerState extends State<Draweer> {
                   title: "Dashboard",
                   numpage: 1,
                   svgsrc: "assets/icons/menu_dashboard.svg",
-                  press: () {},
+                  press: () {
+                    Navigator.pushNamed(context, '/');
+                  },
                   isactive: widget.page == 1),
               ListTilewithArrow(
                   title: "Application",
@@ -64,6 +76,7 @@ class _DraweerState extends State<Draweer> {
                       boolProvider.deactivate();
                     }
                     print(boolProvider.isActive);
+                    print(numberprovider.number);
                   },
                   isactive: widget.page == 2),
               (boolProvider.isActive)
@@ -75,12 +88,22 @@ class _DraweerState extends State<Draweer> {
                         children: [
                           local(
                               text: "Subscriptions",
-                              active: widget.isActive,
-                              functio: () {}),
+                              active: numberprovider.number == 2
+                                  ? 0
+                                  : numberprovider.number,
+                              functio: () {
+                                numberprovider.setTo1();
+                                Navigator.pushNamed(context, "/Subs");
+                              }),
                           local(
                               text: "Users",
-                              active: !widget.isActive,
-                              functio: () {})
+                              active: numberprovider.number == 1
+                                  ? 0
+                                  : numberprovider.number,
+                              functio: () {
+                                numberprovider.setTo2();
+                                Navigator.pushNamed(context, "/users");
+                              })
                         ],
                       ),
                     )
@@ -90,14 +113,28 @@ class _DraweerState extends State<Draweer> {
                   numpage: 3,
                   svgsrc: "assets/icons/email.svg",
                   press: () {
-                    Navigator.of(context).push(_createRoute());
+                    if (boolProvider.isActive) {
+                      numberprovider.resetTo0();
+                      boolProvider.deactivate();
+                    }
+                    Navigator.pushNamed(context, "/email");
                   },
                   isactive: widget.page == 3),
               DrawerListTile(
                   title: "Calendar",
                   numpage: 4,
                   svgsrc: "assets/icons/calendar.svg",
-                  press: () {},
+                  press: () {
+                    if (boolProvider.isActive) {
+                      numberprovider.resetTo0();
+                      boolProvider.deactivate();
+                    }
+
+                    Navigator.pushNamed(
+                      context,
+                      "/calendar",
+                    );
+                  },
                   isactive: widget.page == 4),
               Texted("Pages"),
               ListTilewithArrow(
@@ -142,7 +179,7 @@ class _DraweerState extends State<Draweer> {
 
   Padding local(
       {required String text,
-      required bool active,
+      required int active,
       required VoidCallback functio}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 50.0),
@@ -153,29 +190,32 @@ class _DraweerState extends State<Draweer> {
             width: 5,
             height: 5,
             decoration: BoxDecoration(
-                shape: BoxShape.circle, color: active ? black : textColor),
+                shape: BoxShape.circle,
+                color: (active == 1 || active == 2) ? black : textColor),
           ),
           TextButton(
               onPressed: functio,
               child: Text(
                 text,
                 style: TextStyle(
-                    color: active ? black : textColor,
+                    color: (active == 1 || active == 2) ? black : textColor,
                     fontFamily: GoogleFonts.poppinsTextTheme.toString(),
                     fontSize: 16,
-                    fontWeight: active ? FontWeight.bold : FontWeight.normal),
+                    fontWeight: (active == 1 || active == 2)
+                        ? FontWeight.bold
+                        : FontWeight.normal),
               )),
         ],
       ),
     );
   }
 
-  PageRouteBuilder _createRoute() {
+  PageRouteBuilder _createRoute(Widget page) {
     return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => Email(),
+      pageBuilder: (context, animation, secondaryAnimation) => page,
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(1.0, 0.0);
-        const end = Offset.zero;
+        const end = Offset(1.0, 2.0);
         const curve = Curves.easeInOut;
         final tween =
             Tween(begin: begin, end: end).chain(CurveTween(curve: curve));

@@ -209,28 +209,32 @@ class _Dashboard_screenState extends State<Dashboard_screen> {
     );
   }
 
-  TextField NewTextField() {
-    return TextField(
-      decoration: InputDecoration(
-          label: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Text("Search ")),
-          labelStyle: TextStyle(
-              fontSize: 10,
-              fontFamily: GoogleFonts.plusJakartaSans.toString(),
-              color: black,
-              fontWeight: FontWeight.w400),
-          border: OutlineInputBorder(
-            borderSide: BorderSide(color: black),
-          ),
-          prefixIcon: InkWell(
-            onTap: () {},
-            child: SvgPicture.asset(
-              "assets/icons/Search.svg",
-              fit: BoxFit.contain,
-              colorFilter: ColorFilter.mode(textgrey, BlendMode.srcIn),
+  Container NewTextField() {
+    return Container(
+      width: 399,
+      child: TextField(
+        decoration: InputDecoration(
+            label: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Text("Search ")),
+            labelStyle: TextStyle(
+                fontSize: 10,
+                fontFamily: GoogleFonts.plusJakartaSans.toString(),
+                color: black,
+                fontWeight: FontWeight.w400),
+            border: OutlineInputBorder(
+              borderSide: BorderSide(color: textColor),
             ),
-          )),
+            prefixIcon: InkWell(
+              onTap: () {},
+              child: SvgPicture.asset(
+                "assets/icons/Search.svg",
+                height: 5,
+                fit: BoxFit.fitHeight,
+                colorFilter: ColorFilter.mode(textgrey, BlendMode.srcIn),
+              ),
+            )),
+      ),
     );
   }
 }

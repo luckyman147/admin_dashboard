@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:karhabtiapp_dashboard_admin/screens/dahsboard/users.dart';
+import 'package:karhabtiapp_dashboard_admin/screens/dahsboard/subs/users.dart';
 
 import '../../constants.dart';
 import '../../responsive.dart';
@@ -9,7 +9,7 @@ import '../dahsboard/subs/SUbs_screen.dart';
 
 class Subs extends StatefulWidget {
   const Subs({required this.isActive, super.key});
-  final bool isActive;
+  final int isActive;
   @override
   State<Subs> createState() => _SubsState();
 }
@@ -33,14 +33,14 @@ class _SubsState extends State<Subs> {
                 child: Column(
                   children: [
                     Header(
-                      text: widget.isActive ? "Subscriptions" : "Users",
+                      text: (widget.isActive == 1) ? "Subscriptions" : "Users",
                     ),
                     SizedBox(
                         height: defaultPadding,
                         child: Container(
                           color: primaryColor,
                         )),
-                    widget.isActive ? Subs_screen() : User_screen(),
+                    widget.isActive == 1 ? Subs_screen() : User_screen(),
                   ],
                 ),
               ),

@@ -21,7 +21,7 @@ class MainScreen extends StatelessWidget {
       children: [
         if (Responsive.isDesktop(context))
           Expanded(
-            child: Draweer(page: 1, isActive: false),
+            child: Draweer(page: 1, isActive: 0),
           ),
         Expanded(
             flex: 5,

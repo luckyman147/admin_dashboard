@@ -4,12 +4,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:karhabtiapp_dashboard_admin/screens/buttons/dropdownbutton.dart';
 // import 'package:karhabtiapp_dashboard_admin/screens/components/tableData.dart';
 
-import '../../../constants.dart';
+import '../../../../constants.dart';
 // import '../../buttons/dropdownbutton.dart';
 // import '../../components/header.dart';
-import '../components/header.dart';
-import '../components/pres.dart';
-import '../components/tableDataUsers.dart';
+import '../../components/header.dart';
+import '../../components/pres.dart';
+import '../../components/tableDataUsers.dart';
 
 class User_screen extends StatefulWidget {
   const User_screen({super.key});
