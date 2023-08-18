@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:karhabtiapp_dashboard_admin/screens/components/tableDataEmail.dart';
+import 'package:get/get.dart';
+import 'package:karhabtiapp_dashboard_admin/screens/components/tables/tableDataEmail.dart';
 
-import '../../constants.dart';
+import '../../constants/constants.dart';
+import '../../model/listController.dart';
 import '../buttons/dropdownbutton.dart';
-import '../components/pres.dart';
-import '../components/tableDataUsers.dart';
+import '../buttons/dropdownbuttonProfile.dart';
+import '../components/widgets/pres.dart';
+import '../components/tables/tableDataUsers.dart';
 
 class Email_screen extends StatefulWidget {
   const Email_screen({super.key});
@@ -16,6 +19,7 @@ class Email_screen extends StatefulWidget {
 
 class _Email_screenState extends State<Email_screen> {
   List<String> options = ['ALL', 'B2C', 'B2B'];
+  final DropdownController dropdownController = Get.put(DropdownController());
 
   @override
   Widget build(BuildContext context) {
@@ -113,31 +117,33 @@ class _Email_screenState extends State<Email_screen> {
                           ),
                         ],
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Container(
-                                height: 45,
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: primaryColor)),
-                                child: DRopdownMethod(
-                                    first: "ALL", list: options)),
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 3.0),
-                            child: Container(
-                                height: 45,
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: primaryColor)),
-                                child: DRopdownMethod(
-                                    first: "2022", list: ["2022", "2023"])),
-                          ),
-                        ],
-                      )
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //   children: [
+                      //     Padding(
+                      //       padding:
+                      //           const EdgeInsets.symmetric(horizontal: 8.0),
+                      //       child: Container(
+                      //           height: 45,
+                      //           decoration: BoxDecoration(
+                      //               border: Border.all(color: primaryColor)),
+                      //           child: Obx(() => DRopdownPROFILMethod(
+                      //               first: dropdownController.firstcopy.value,
+                      //               list: options))),
+                      //     ),
+                      //     // Padding(
+                      //     //   padding:
+                      //     //       const EdgeInsets.symmetric(horizontal: 3.0),
+                      //     //   child: Container(
+                      //     //       height: 45,
+                      //     //       decoration: BoxDecoration(
+                      //     //           border: Border.all(color: primaryColor)),
+                      //     //       child: Obx(() => DRopdownYearMethod(
+                      //     //           first: dropdownController.year.value,
+                      //     //           list: dropdownController.years))),
+                      //     // ),
+                      //   ],
+                      // )
                     ],
                   ),
                 ),

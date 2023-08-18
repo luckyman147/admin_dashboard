@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:karhabtiapp_dashboard_admin/responsive.dart';
 
-import '../../constants.dart';
+import '../../constants/constants.dart';
 import '../components/Draweer.dart';
 import '../components/header.dart';
 import '../dahsboard/dashboard_screen.dart';

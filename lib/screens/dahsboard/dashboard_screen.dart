@@ -1,18 +1,24 @@
 // import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:karhabtiapp_dashboard_admin/screens/components/Revenue_Ana.dart';
-import 'package:karhabtiapp_dashboard_admin/screens/components/tableData.dart';
+import 'package:karhabtiapp_dashboard_admin/constants/utils.dart';
+import 'package:karhabtiapp_dashboard_admin/screens/components/widgets/Revenue_Ana.dart';
+import 'package:karhabtiapp_dashboard_admin/screens/components/tables/tableData.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
 // import '../components/barchar.dart';
 // import 'package:google_fonts/google_fonts.dart';
 
-import '../../constants.dart';
+import '../../constants/constants.dart';
+import '../../model/TransactionService.dart';
+import '../../model/listController.dart';
+import '../../model/userService.dart';
 import '../buttons/dropdownbutton.dart';
-import '../components/Earning.dart';
+import '../buttons/dropdownbuttonProfile.dart';
+import '../components/widgets/Earning.dart';
 import '../components/header.dart';
-import '../components/leftside.dart';
+import '../components/widgets/leftside.dart';
 
 class Dashboard_screen extends StatefulWidget {
   const Dashboard_screen({super.key});
@@ -24,6 +30,8 @@ class Dashboard_screen extends StatefulWidget {
 class _Dashboard_screenState extends State<Dashboard_screen> {
   String Selected = 'ALL';
   String first = 'Aug';
+  final DropdownController dropdownController = Get.put(DropdownController());
+
   List<String> options = ['ALL', 'B2C', 'B2B'];
   List<String> monthNames = [
     'Jan',
@@ -39,58 +47,23 @@ class _Dashboard_screenState extends State<Dashboard_screen> {
     'Nov',
     'Dec'
   ];
-  List<Map<String, dynamic>> tableData = [
-    {
-      'index': false,
-      'OrderID': "#KA5631",
-      "Date": "04 September 2023",
-      "User Name": "Nelson Mandela",
-      "User Profile": "B2B",
-      "Total": "2000",
-      "Payment Status": "Paid",
-    },
-    {
-      'index': true,
-      'OrderID': "#KA5771",
-      "Date": "04 october 2023",
-      "User Name": "Bob Marley",
-      "User Profile": "B2C",
-      "Total": "200",
-      "Payment Status": "Unpaid",
-    },
-    {
-      'index': true,
-      'OrderID': "#KA5971",
-      "Date": "04 Juillet 2023",
-      "User Name": "Micheal Jackson",
-      "User Profile": "B2B",
-      "Total": "100",
-      "Payment Status": "Change Back",
-    },
-    {
-      'index': false,
-      'OrderID': "#KA5631",
-      "Date": "04 September 2023",
-      "User Name": "Nelson Mandela",
-      "User Profile": "B2B",
-      "Total": "2000",
-      "Payment Status": "Paid",
-    },
-    {
-      'index': false,
-      'OrderID': "#KA5631",
-      "Date": "04 September 2023",
-      "User Name": "Nelson Mandela",
-      "User Profile": "B2B",
-      "Total": "2000",
-      "Payment Status": "Paid",
-    },
 
-    // Add more data as needed
-  ];
+  final TransactionController transactionController =
+      Get.put(TransactionController());
+  @override
+  void initState() {
+    transactionController.resetSearchText();
+    if (transactionController.transactions.isEmpty) {
+      transactionController.SelectTransactionData();
+    }
+
+    super.initState();
+  }
+
   List<String> year = ['Today', "Week", "Month", "Year"];
   @override
   Widget build(BuildContext context) {
+    // TextEditingController searchController = TextEditingController();
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
@@ -123,51 +96,116 @@ class _Dashboard_screenState extends State<Dashboard_screen> {
                     padding:
                         const EdgeInsets.symmetric(vertical: defaultPadding),
                     child: Container(
-                      height: 430,
-                      decoration: box,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 18.0, horizontal: 10),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Recent Transactions",
-                                    style: TextStyle(
-                                        fontFamily: styletext,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w500,
-                                        color: black),
-                                  ),
-                                  searchline()
-                                ],
-                              ),
-                            ),
-                            Tabled(
-                              tableData: tableData,
-                              space: 44,
-                              number: 5,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
+                        height: 430,
+                        decoration: box,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 18.0, horizontal: 10),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                elevatedNE("Previous", () {}),
-                                elevatedNUmber("1", () {}, true),
-                                elevatedNUmber("2", () {}, false),
-                                elevatedNE("Next", () {}),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Recent Transactions",
+                                        style: TextStyle(
+                                            fontFamily: styletext,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w500,
+                                            color: black),
+                                      ),
+                                      searchline(),
+                                    ],
+                                  ),
+                                ),
+                                RefreshIndicator(
+                                  onRefresh: () {
+                                    return Future.sync(() =>
+                                        transactionController
+                                            .SelectTransactionData());
+                                  },
+                                  child: FutureBuilder<void>(
+                                    future: transactionController
+                                            .searchController.text.isEmpty
+                                        ? transactionController
+                                            .SelectTransactionData()
+                                        : transactionController.searchByName(
+                                            transactionController
+                                                .searchController.text),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return Center(
+                                            child: CircularProgressIndicator());
+                                      } else if (snapshot.hasData) {
+                                        return Center(
+                                            child: CircularProgressIndicator());
+                                      } else if (snapshot.hasError) {
+                                        return Center(
+                                            child: Text(
+                                                'Error: ${snapshot.error}'));
+                                      } else {
+                                        return Obx(() {
+                                          if (transactionController
+                                              .isLoading.value) {
+                                            return CircularProgressIndicator();
+                                          } else {
+                                            if (transactionController
+                                                .transactions.isNotEmpty)
+                                              return Tabled(
+                                                tableData: transactionController
+                                                    .transactions,
+                                                space: 44,
+                                                number: transactionController
+                                                    .transactions.length,
+                                              );
+                                            else
+                                              return Center(
+                                                  child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 50.0),
+                                                child: Text(
+                                                    "No Transactions Found",
+                                                    style: TextStyle(
+                                                        color: black,
+                                                        fontSize: 22)),
+                                              ));
+                                          }
+                                        });
+                                      }
+                                    },
+                                  ),
+                                ),
+                                Obx(() {
+                                  if (transactionController
+                                      .transactions.isNotEmpty)
+                                    return Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          elevatedNE("Previous", () {}),
+                                          elevatedNUmber("1", () {}, true),
+                                          elevatedNUmber("2", () {}, false),
+                                          elevatedNE("Next", () {}),
+                                        ],
+                                      ),
+                                    );
+                                  else
+                                    return Container();
+                                })
                               ],
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
+                            ),
+                          ),
+                        )),
                   )
                 ],
               ))
@@ -195,7 +233,8 @@ class _Dashboard_screenState extends State<Dashboard_screen> {
               height: 45,
               decoration:
                   BoxDecoration(border: Border.all(color: primaryColor)),
-              child: DRopdownMethod(first: "ALL", list: options)),
+              child: Obx(() => DRopdownPROFILMethod(
+                  first: dropdownController.firstcopy.value, list: options))),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 3.0),
@@ -203,7 +242,9 @@ class _Dashboard_screenState extends State<Dashboard_screen> {
               height: 45,
               decoration:
                   BoxDecoration(border: Border.all(color: primaryColor)),
-              child: DRopdownMethod(first: "2022", list: ["2022", "2023"])),
+              child: Obx(() => DRopdownYearMethod(
+                  first: dropdownController.year.value,
+                  list: dropdownController.years))),
         ),
       ],
     );
@@ -213,6 +254,11 @@ class _Dashboard_screenState extends State<Dashboard_screen> {
     return Container(
       width: 399,
       child: TextField(
+        onSubmitted: (value) {
+          transactionController.updateSearchText(value);
+        },
+        style: TextStyle(
+            color: black, fontSize: 12, fontWeight: FontWeight.normal),
         decoration: InputDecoration(
             label: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10),
@@ -226,7 +272,12 @@ class _Dashboard_screenState extends State<Dashboard_screen> {
               borderSide: BorderSide(color: textColor),
             ),
             prefixIcon: InkWell(
-              onTap: () {},
+              onTap: () {
+                FocusScopeNode currentFocus = FocusScope.of(context);
+                if (transactionController.searchController.text.isNotEmpty)
+                  transactionController.updateSearchText(
+                      transactionController.searchController.text);
+              },
               child: SvgPicture.asset(
                 "assets/icons/Search.svg",
                 height: 5,

@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:karhabtiapp_dashboard_admin/screens/buttons/dropdownbutton.dart';
 // import 'package:karhabtiapp_dashboard_admin/screens/components/tableData.dart';
 
-import '../../../../constants.dart';
+import '../../../constants/constants.dart';
 // import '../../buttons/dropdownbutton.dart';
 // import '../../components/header.dart';
+import '../../../model/listController.dart';
+import '../../../model/userService.dart';
+import '../../buttons/dropdownbuttonProfile.dart';
 import '../../components/header.dart';
-import '../../components/pres.dart';
-import '../../components/tableDataUsers.dart';
+import '../../components/widgets/pres.dart';
+import '../../components/tables/tableDataUsers.dart';
 
 class User_screen extends StatefulWidget {
   const User_screen({super.key});
@@ -19,37 +23,20 @@ class User_screen extends StatefulWidget {
 }
 
 class _User_screenState extends State<User_screen> {
+  final DropdownController dropdownController = Get.put(DropdownController());
+
+  @override
+  void initState() {
+    if (userController.Users.isEmpty) {
+      userController.SelectUserData();
+    }
+    super.initState();
+  }
+
+  final UserController userController = Get.put(UserController());
   @override
   Widget build(BuildContext context) {
     final media = MediaQuery.sizeOf(context);
-    List<Map<String, dynamic>> tableDataUser = [
-      {
-        'index': false,
-        'user name': 'Bob',
-        'email': 'eve@example.com',
-        'phone': '555-555-5555',
-        'user profile': 'B2C',
-        'joining date': "2023-08-01 "
-      },
-      {
-        'index': false,
-        'user name': 'David',
-        'email': 'charlie@example.com',
-        'phone': '444-555-6666',
-        'user profile': 'B2B',
-        'joining date': "2023-07-28"
-      },
-      {
-        'index': false,
-        'user name': 'Charlie',
-        'email': 'eve@example.com',
-        'phone': '123-456-7890',
-        'user profile': 'B2C',
-        'joining date': "2023-07-30"
-      },
-      // ... more entries
-    ];
-
     // bool active = true;
     // bool active2 = false;
     List<String> options = ['ALL', 'B2C', 'B2B'];
@@ -101,8 +88,9 @@ class _User_screenState extends State<User_screen> {
                                 height: 45,
                                 decoration: BoxDecoration(
                                     border: Border.all(color: primaryColor)),
-                                child: DRopdownMethod(
-                                    first: "ALL", list: options)),
+                                child: Obx(() => DRopdownPROFILMethod(
+                                    first: dropdownController.firstcopy.value,
+                                    list: options))),
                           ),
                           Padding(
                             padding:
@@ -111,30 +99,63 @@ class _User_screenState extends State<User_screen> {
                                 height: 45,
                                 decoration: BoxDecoration(
                                     border: Border.all(color: primaryColor)),
-                                child: DRopdownMethod(
-                                    first: "2022", list: ["2022", "2023"])),
+                                child: Obx(() => DRopdownYearMethod(
+                                    first: dropdownController.year.value,
+                                    list: dropdownController.years))),
                           ),
                         ],
                       )
                     ],
                   ),
                 ),
-                TabledUser(
-                  tableData: tableDataUser,
-                  space: media.width * .081,
+                FutureBuilder<void>(
+                  future: userController.SelectUserData(),
+                  builder: (context, snapshot) {
+                    // print(UserController.searchController);
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasError) {
+                      return Center(child: Text('Error: ${snapshot.error}'));
+                    } else {
+                      return Obx(() {
+                        if (userController.isLoading.value) {
+                          return CircularProgressIndicator();
+                        } else {
+                          if (userController.Users.isEmpty)
+                            return Center(
+                              child: Text(
+                                "No Data found ",
+                                style: TextStyle(color: black, fontSize: 22),
+                              ),
+                            );
+                          else
+                            return TabledUser(
+                              tableData: userController.Users,
+                              space: MediaQuery.sizeOf(context).width * .057,
+                              number: userController.Users.length,
+                            );
+                        }
+                      });
+                    }
+                  },
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      elevatedNE("Previous", () {}),
-                      elevatedNUmber("1", () {}, true),
-                      elevatedNUmber("2", () {}, false),
-                      elevatedNE("Next", () {}),
-                    ],
-                  ),
-                )
+                Obx(() {
+                  if (userController.Users.isNotEmpty)
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 20.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          elevatedNE("Previous", () {}),
+                          elevatedNUmber("1", () {}, true),
+                          elevatedNUmber("2", () {}, false),
+                          elevatedNE("Next", () {}),
+                        ],
+                      ),
+                    );
+                  else
+                    return Container();
+                }),
               ],
             ),
           ),

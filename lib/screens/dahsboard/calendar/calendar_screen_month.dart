@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:karhabtiapp_dashboard_admin/screens/components/schedule.dart';
-import 'package:karhabtiapp_dashboard_admin/screens/components/tableDataEmail.dart';
-import 'package:karhabtiapp_dashboard_admin/provider/boolStates.dart';
+import 'package:karhabtiapp_dashboard_admin/screens/components/widgets/schedule.dart';
+import 'package:karhabtiapp_dashboard_admin/screens/components/tables/tableDataEmail.dart';
+import 'package:karhabtiapp_dashboard_admin/model/boolStates.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
-import '../../../constants.dart';
-import '../../../provider/CalendarViewProvider.dart';
+import '../../../constants/constants.dart';
+import '../../../model/CalendarViewController.dart';
 
 class Calendar_screen_month extends StatefulWidget {
   const Calendar_screen_month({
@@ -25,8 +25,8 @@ class _Calendar_screen_monthState extends State<Calendar_screen_month> {
 
   @override
   Widget build(BuildContext context) {
-    final calendarViewProvider = Provider.of<CalendarViewProvider>(context);
-    final boolProvider = Provider.of<BooleanStatesProvider>(context);
+    // final calendarViewProvider = Provider.of<CalendarViewProvider>(context);
+    // final boolProvider = Provider.of<BooleanStatesProvider>(context);
 
     CalendarView currentview = CalendarView.week;
     // bool isToday = widget.currentDate.day == DateTime.now().day &&
@@ -60,23 +60,23 @@ class _Calendar_screen_monthState extends State<Calendar_screen_month> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CalendBar("Month", boolProvider.isFirstActive, () {
-                            boolProvider.activateFirst();
-                            calendarViewProvider.ChangeView(
-                                CalendarViewType.month);
-                            setState(() {});
+                          CalendBar("Month", true, () {
+                            // boolProvider.activateFirst();
+                            // calendarViewProvider.ChangeView(
+                            //     CalendarViewType.month);
+                            // setState(() {});
                           }),
-                          CalendBar("Week", boolProvider.isSecondActive, () {
-                            boolProvider.activateSecond();
-                            calendarViewProvider.ChangeView(
-                                CalendarViewType.week);
-                            setState(() {});
+                          CalendBar("Week", false, () {
+                            // boolProvider.activateSecond();
+                            // calendarViewProvider.ChangeView(
+                            //     CalendarViewType.week);
+                            // setState(() {});
                           }),
-                          CalendBar("Day", boolProvider.isThirdActive, () {
-                            boolProvider.activateThird();
-                            calendarViewProvider.ChangeView(
-                                CalendarViewType.day);
-                            setState(() {});
+                          CalendBar("Day", false, () {
+                            // boolProvider.activateThird();
+                            // calendarViewProvider.ChangeView(
+                            //     CalendarViewType.day);
+                            // setState(() {});
                           }),
                         ],
                       ),
