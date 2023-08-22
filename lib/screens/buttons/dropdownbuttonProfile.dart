@@ -2,9 +2,11 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:karhabtiapp_dashboard_admin/model/counter.dart';
 
 import '../../model/TransactionService.dart';
 import '../../model/listController.dart';
+import '../../model/userService.dart';
 
 class DRopdownPROFILMethod extends StatefulWidget {
   const DRopdownPROFILMethod(
@@ -21,6 +23,9 @@ class _DRopdownPROFILMethodState extends State<DRopdownPROFILMethod> {
     final TransactionController transactionController =
         Get.put(TransactionController());
     final dropdownController = Get.put(DropdownController());
+    final userController = Get.put(UserController());
+    final counter = Get.put(CounterController());
+
     // String? firstcopy = widget.first;
     return DropdownButton2(
       underline: Container(),
@@ -32,7 +37,11 @@ class _DRopdownPROFILMethodState extends State<DRopdownPROFILMethod> {
           fontWeight: FontWeight.w400),
       onChanged: (value) {
         dropdownController.updateFirstCopy(value!);
-        transactionController.filterByUserProfile(value);
+        final len = transactionController.filterByUserProfile(value);
+        counter.set(len);
+        // print(counter.count.value);
+        final userlen = userController.filterByUserProfile(value);
+        counter.set(userlen);
       },
       // borderRadius: BorderRadius.circular(20),
       items: widget.list.map((e) {

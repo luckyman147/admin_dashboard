@@ -41,6 +41,7 @@ class TransactionController extends GetxController {
                 .map((item) => Map<String, dynamic>.from(item)));
 
         transactions.value = extractDataList(data);
+        filteredTransactions.value.assignAll(transactions);
         print(transactions.value);
       }
     } catch (e) {
@@ -52,21 +53,52 @@ class TransactionController extends GetxController {
     }
   }
 
-  void filterByPaymentStatus(String paymentStatus) {
+  Future<bool> editTransactionPaymentStatus(
+      int transactionId, Map<String, dynamic> TransData) async {
+    try {
+      final response = await http.patch(
+        Uri.parse('http://localhost:3000/transaction/${transactionId}'),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: json.encode(TransData),
+      );
+      if (response.statusCode == 200) {
+        // Successfully edited, update the transaction list
+        await SelectTransactionData();
+        print('Transaction edited successfully');
+        print("TransData ${TransData}");
+        return true;
+      } else {
+        print('Failed to edit Transaction');
+        print(response.body);
+        print("${response.statusCode}");
+        return false;
+      }
+    } catch (e) {
+      print(e);
+      throw Exception('Failed to edit transaction');
+    }
+  }
+
+  int filterByPaymentStatus(String paymentStatus) {
     if (paymentStatus == 'ALL') {
       filteredTransactions.assignAll(transactions);
+      return filteredTransactions.length;
     } else {
       // SelectTransactionData();
       filteredTransactions.assignAll(transactions
           .where((transaction) => transaction['PaymentStatus'] == paymentStatus)
           .toList());
+      return filteredTransactions.length;
     }
   }
 
-  void filterByYear(String selectedDate) {
+  int filterByYear(String selectedDate) {
     if (selectedDate == "ALL") {
       // No filtering required, show all transactions
       filteredTransactions.assignAll(transactions);
+      return filteredTransactions.length;
     } else {
       // Filter transactions based on year
 
@@ -74,17 +106,20 @@ class TransactionController extends GetxController {
         final transactionDate = DateTime.parse(transaction['Date']);
         return transactionDate.year.toString() == selectedDate;
       }));
+      return filteredTransactions.length;
     }
   }
 
-  void filterByUserProfile(String userProfile) {
+  int filterByUserProfile(String userProfile) {
     if (userProfile == 'ALL') {
       // No filtering required, show all transactions
       filteredTransactions.assignAll(transactions);
+      return filteredTransactions.length;
     } else {
       // Filter transactions based on UserProfile
       filteredTransactions.assignAll(transactions
           .where((transaction) => transaction['UserProfile'] == userProfile));
+      return filteredTransactions.length;
     }
   }
 
@@ -120,6 +155,8 @@ class TransactionController extends GetxController {
 
       if (extractedData.containsKey('User')) {
         Map<String, dynamic> user = Map.from(extractedData['User']);
+
+        extractedData['UserId'] = user['id'];
         extractedData['UserIName'] = user['Username'];
         extractedData['UserProfile'] = user['UserProfile'];
         extractedData.remove('User');
@@ -131,7 +168,7 @@ class TransactionController extends GetxController {
     return extractedDataList;
   }
 
-  Future<void> deleteTransaction(int transactionId) async {
+  Future<bool> deleteTransaction(int transactionId) async {
     try {
       final response = await http.delete(
         Uri.parse('http://localhost:3000/transaction/${transactionId}'),
@@ -140,8 +177,10 @@ class TransactionController extends GetxController {
         // Successfully deleted, update the user list
         await SelectTransactionData();
         print('Transaction deleted successfully');
+        return true;
       } else {
         print('Failed to delete Transaction');
+        return false;
       }
     } catch (e) {
       print(e);

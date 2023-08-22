@@ -39,7 +39,7 @@ route.get('/users',(req,res,next)=>{
 route.patch('/user/:id',(req,res,next)=>{
     db.User.update({Username:req.body.Username,
         email:req.body.email,
-        password:req.body.Phone,
+        Phone:req.body.Phone,
         UserProfile:req.body.UserProfile,
         JoiningDate:req.body.JoiningDate
     
@@ -49,7 +49,7 @@ route.patch('/user/:id',(req,res,next)=>{
 })
 route.delete('/user/:id',(req,res,next)=>{
     db.User.destroy({where:{id:req.params.id}}).
-    then((response)=>res.status(200).send(response)).
+    then((response)=>res.sendStatus(204)).
     catch((err)=> res.status(400).send(err))
 
 })

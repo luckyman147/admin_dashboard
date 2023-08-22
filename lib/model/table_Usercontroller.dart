@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
 
-class TableStatesController extends GetxController {
+class TableUserStatesController extends GetxController {
   final List<RxBool> activationList;
   final checkall = false.obs;
 
-  TableStatesController(int length)
+  TableUserStatesController(int length)
       : activationList = List.generate(length, (_) => false.obs);
 
   void activate(int index) {

@@ -39,7 +39,7 @@ route.get('/searchTransactions', (req, res, next) => {
 route.get('/transactions',(req,res,next)=>{
     db.Transaction.findAll({include:[    {
         model: db.User,
-        attributes: ['Username', 'UserProfile'] // Include only specific attributes
+        attributes: ['id','Username', 'UserProfile'] // Include only specific attributes
       }]}).
     then((response)=>res.status(200).send(response)).
     catch((err)=> res.status(400).send(err))

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 const bgColor = Colors.white;
@@ -181,3 +182,37 @@ final columnRO = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w500,
     color: black);
+void showCustomSnackbar(bool success, String status) {
+  Get.snackbar(success ? 'Success' : "Error",
+      success ? 'User ${status} successfully' : 'User ${status} Failed',
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: success ? Colors.green : Colors.red,
+      colorText: Colors.white,
+      maxWidth: 300,
+      duration: Duration(seconds: 2),
+      margin: EdgeInsets.all(10),
+      icon: Icon(success ? Icons.check : Icons.error_rounded));
+}
+
+Padding description(String name, String desc) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          "${name}:",
+          style: TextStyle(color: textColor, fontSize: 16),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(right: 34.0),
+          child: Text(
+            desc,
+            style: TextStyle(
+                color: black, fontWeight: FontWeight.w500, fontSize: 18),
+          ),
+        ),
+      ],
+    ),
+  );
+}

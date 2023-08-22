@@ -96,9 +96,11 @@ class _Email_screenState extends State<Email_screen> {
                 Padding(
                   padding: const EdgeInsets.all(18.0),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
                             "Show",

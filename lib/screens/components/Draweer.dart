@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:karhabtiapp_dashboard_admin/model/counter.dart';
 // import 'package:karhabtiapp_dashboard_admin/model/NumberController.dart';
 // import 'package:karhabtiapp_dashboard_admin/screens/main/Application.dart';
 // import 'package:karhabtiapp_dashboard_admin/screens/main/mainScreen.dart';
@@ -12,11 +13,6 @@ import '../../model/boolStates.dart';
 import '../main/Email.dart';
 import '../main/calendar.dart';
 
-enum SlideTransitionType {
-  slideInRight,
-  // Add more transition types here if needed
-}
-
 class Draweer extends StatefulWidget {
   const Draweer({required this.page, required this.isActive, super.key});
   final int isActive;
@@ -26,6 +22,7 @@ class Draweer extends StatefulWidget {
 }
 
 class _DraweerState extends State<Draweer> {
+  final counter = Get.put(CounterController());
   @override
   Widget build(BuildContext context) {
     bool IsApp = false;
@@ -68,7 +65,9 @@ class _DraweerState extends State<Draweer> {
                         if (boolController.isActive) {
                           boolController.resetTo0();
                           boolController.deactivate();
+                          boolController.activateFirst();
                         }
+                        counter.reset();
                         Get.toNamed('/');
                       },
                       isactive: widget.page == 1),
@@ -100,6 +99,8 @@ class _DraweerState extends State<Draweer> {
                                       : boolController.number,
                                   functio: () {
                                     boolController.setTo1();
+                                    counter.reset();
+                                    boolController.activateFirst();
                                     Get.toNamed("/Subs");
                                   }),
                               local(
@@ -109,6 +110,8 @@ class _DraweerState extends State<Draweer> {
                                       : boolController.number,
                                   functio: () {
                                     boolController.setTo2();
+                                    counter.reset();
+                                    boolController.activateFirst();
                                     Get.toNamed("/users");
                                   })
                             ],
@@ -122,7 +125,9 @@ class _DraweerState extends State<Draweer> {
                       press: () {
                         if (boolController.isActive) {
                           boolController.resetTo0();
+
                           boolController.deactivate();
+                          counter.reset();
                         }
                         Get.toNamed("/email");
                       },

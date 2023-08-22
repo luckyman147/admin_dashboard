@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
 class NumberController extends GetxController {
-  var _number = 0.obs;
+  var _number = 5.obs;
 
   int get number => _number.value;
 

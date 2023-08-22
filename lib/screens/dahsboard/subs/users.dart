@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:karhabtiapp_dashboard_admin/model/counter.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:karhabtiapp_dashboard_admin/screens/buttons/dropdownbutton.dart';
+import 'package:karhabtiapp_dashboard_admin/screens/components/dialogueAddWidget.dart';
 // import 'package:karhabtiapp_dashboard_admin/screens/components/tableData.dart';
 
 import '../../../constants/constants.dart';
@@ -24,6 +26,7 @@ class User_screen extends StatefulWidget {
 
 class _User_screenState extends State<User_screen> {
   final DropdownController dropdownController = Get.put(DropdownController());
+  final CounterController counter = Get.put(CounterController());
 
   @override
   void initState() {
@@ -56,7 +59,10 @@ class _User_screenState extends State<User_screen> {
                   padding: const EdgeInsets.symmetric(horizontal: 17.0),
                   child: Row(
                     children: [
-                      addThing("Add User", "assets/icons/plus.svg", () {})
+                      addThing("Add User", "assets/icons/plus.svg", () {
+                        showDialog(
+                            context: context, builder: (context) => MyDialog());
+                      })
                     ],
                   ),
                 ),
@@ -108,36 +114,70 @@ class _User_screenState extends State<User_screen> {
                     ],
                   ),
                 ),
-                FutureBuilder<void>(
-                  future: userController.SelectUserData(),
-                  builder: (context, snapshot) {
-                    // print(UserController.searchController);
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(child: CircularProgressIndicator());
-                    } else if (snapshot.hasError) {
-                      return Center(child: Text('Error: ${snapshot.error}'));
-                    } else {
-                      return Obx(() {
-                        if (userController.isLoading.value) {
-                          return CircularProgressIndicator();
-                        } else {
-                          if (userController.Users.isEmpty)
-                            return Center(
-                              child: Text(
-                                "No Data found ",
-                                style: TextStyle(color: black, fontSize: 22),
-                              ),
-                            );
-                          else
-                            return TabledUser(
-                              tableData: userController.Users,
-                              space: MediaQuery.sizeOf(context).width * .057,
-                              number: userController.Users.length,
-                            );
-                        }
+                Expanded(
+                  child: RefreshIndicator(
+                    onRefresh: () {
+                      return Future.delayed(Duration(seconds: 1), () {
+                        setState(() {});
                       });
-                    }
-                  },
+                    },
+                    child: FutureBuilder<void>(
+                      future: userController.SelectUserData(),
+                      builder: (context, snapshot) {
+                        // print(snapshot);
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          return Obx(() {
+                            if (userController.Users.isNotEmpty)
+                              return TabledUser(
+                                tableData: userController.filteredUsers,
+                                space: MediaQuery.sizeOf(context).width * .057,
+                                number: counter.count.value,
+                              );
+                            else
+                              return Center(
+                                  child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 50.0),
+                                child: Text("No Users Found",
+                                    style:
+                                        TextStyle(color: black, fontSize: 22)),
+                              ));
+                          });
+                        }
+
+                        // print(UserController.searchController);
+                        else if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(child: CircularProgressIndicator());
+                        } else if (snapshot.hasError) {
+                          return Center(
+                              child: Text('Error: ${snapshot.error}'));
+                        } else {
+                          return Obx(() {
+                            if (userController.isLoading.value) {
+                              return CircularProgressIndicator();
+                            } else {
+                              if (userController.Users.isEmpty)
+                                return Center(
+                                  child: Text(
+                                    "No Data found ",
+                                    style:
+                                        TextStyle(color: black, fontSize: 22),
+                                  ),
+                                );
+                              else
+                                return TabledUser(
+                                  tableData: userController.filteredUsers,
+                                  space:
+                                      MediaQuery.sizeOf(context).width * .057,
+                                  number: counter.count.value,
+                                );
+                            }
+                          });
+                        }
+                      },
+                    ),
+                  ),
                 ),
                 Obx(() {
                   if (userController.Users.isNotEmpty)

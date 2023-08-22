@@ -2,6 +2,8 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:karhabtiapp_dashboard_admin/model/counter.dart';
+import 'package:karhabtiapp_dashboard_admin/model/userService.dart';
 
 import '../../model/TransactionService.dart';
 import '../../model/listController.dart';
@@ -18,9 +20,11 @@ class DRopdownYearMethod extends StatefulWidget {
 class _DRopdownYearMethodState extends State<DRopdownYearMethod> {
   @override
   Widget build(BuildContext context) {
+    final counter = Get.put(CounterController());
     final TransactionController transactionController =
         Get.put(TransactionController());
     final dropdownController = Get.put(DropdownController());
+    final userController = Get.put(UserController());
     // String? firstcopy = widget.first;
     return DropdownButton2(
       underline: Container(),
@@ -32,7 +36,11 @@ class _DRopdownYearMethodState extends State<DRopdownYearMethod> {
           fontWeight: FontWeight.w400),
       onChanged: (value) {
         dropdownController.updated(value!);
-        transactionController.filterByYear(value);
+        final len = transactionController.filterByYear(value);
+        counter.set(len);
+
+        final lenu = userController.filterByYear(value);
+        counter.set(lenu);
       },
       // borderRadius: BorderRadius.circular(20),
       items: widget.list.map((e) {

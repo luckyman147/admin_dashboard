@@ -4,8 +4,11 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:karhabtiapp_dashboard_admin/model/CalendarViewController.dart';
 import 'package:karhabtiapp_dashboard_admin/model/NumberController.dart';
+import 'package:karhabtiapp_dashboard_admin/model/TransactionService.dart';
 import 'package:karhabtiapp_dashboard_admin/model/boolStates.dart';
+import 'package:karhabtiapp_dashboard_admin/model/counter.dart';
 import 'package:karhabtiapp_dashboard_admin/model/table_controller.dart';
+import 'package:karhabtiapp_dashboard_admin/model/userService.dart';
 import 'package:karhabtiapp_dashboard_admin/screens/main/Application.dart';
 import 'package:karhabtiapp_dashboard_admin/screens/main/Email.dart';
 // import 'package:karhabtiapp_dashboard_admin/screens/main/Application.dart';
@@ -20,8 +23,19 @@ void main() {
   runApp(MainApp());
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
   const MainApp({super.key});
+
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
+  @override
+  void initState() {
+    super.initState();
+    // transactionController.SelectTransactionData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +72,10 @@ class MainApp extends StatelessWidget {
               Get.put(NumberController());
               Get.put(BooleanStatesController());
               Get.put(CalendarViewController());
-              Get.put(TableStatesController());
+              // Get.put(TableStatesController());
+              Get.put(TransactionController());
+              Get.put(UserController());
+              Get.put(CounterController());
             }),
             home: MainScreen());
 

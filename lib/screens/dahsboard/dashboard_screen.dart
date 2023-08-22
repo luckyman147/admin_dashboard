@@ -16,6 +16,7 @@ import '../../model/listController.dart';
 import '../../model/userService.dart';
 import '../buttons/dropdownbutton.dart';
 import '../buttons/dropdownbuttonProfile.dart';
+import '../components/tables/tablesConfig.dart';
 import '../components/widgets/Earning.dart';
 import '../components/header.dart';
 import '../components/widgets/leftside.dart';
@@ -31,7 +32,6 @@ class _Dashboard_screenState extends State<Dashboard_screen> {
   String Selected = 'ALL';
   String first = 'Aug';
   final DropdownController dropdownController = Get.put(DropdownController());
-
   List<String> options = ['ALL', 'B2C', 'B2B'];
   List<String> monthNames = [
     'Jan',
@@ -52,10 +52,12 @@ class _Dashboard_screenState extends State<Dashboard_screen> {
       Get.put(TransactionController());
   @override
   void initState() {
-    transactionController.resetSearchText();
     if (transactionController.transactions.isEmpty) {
       transactionController.SelectTransactionData();
     }
+    transactionController.SelectTransactionData();
+
+    // transactionController.resetSearchText();
 
     super.initState();
   }
@@ -64,6 +66,7 @@ class _Dashboard_screenState extends State<Dashboard_screen> {
   @override
   Widget build(BuildContext context) {
     // TextEditingController searchController = TextEditingController();
+    final media = MediaQuery.sizeOf(context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
@@ -120,68 +123,67 @@ class _Dashboard_screenState extends State<Dashboard_screen> {
                                             fontWeight: FontWeight.w500,
                                             color: black),
                                       ),
-                                      searchline(),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 3.0),
+                                            child: Container(
+                                                width: 120,
+                                                height: 45,
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: primaryColor)),
+                                                child: NewTextField()),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 8.0),
+                                            child: Container(
+                                                height: 45,
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: primaryColor)),
+                                                child: Obx(() =>
+                                                    DRopdownPROFILMethod(
+                                                        first:
+                                                            dropdownController
+                                                                .firstcopy
+                                                                .value,
+                                                        list: options))),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 3.0),
+                                            child: Container(
+                                                height: 45,
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: primaryColor)),
+                                                child: Obx(() =>
+                                                    DRopdownYearMethod(
+                                                        first:
+                                                            dropdownController
+                                                                .year.value,
+                                                        list: dropdownController
+                                                            .years))),
+                                          ),
+                                        ],
+                                      ),
                                     ],
                                   ),
                                 ),
                                 RefreshIndicator(
                                   onRefresh: () {
-                                    return Future.sync(() =>
-                                        transactionController
-                                            .SelectTransactionData());
+                                    return Future.delayed(Duration(seconds: 1),
+                                        () {
+                                      setState(() {});
+                                    });
                                   },
-                                  child: FutureBuilder<void>(
-                                    future: transactionController
-                                            .searchController.text.isEmpty
-                                        ? transactionController
-                                            .SelectTransactionData()
-                                        : transactionController.searchByName(
-                                            transactionController
-                                                .searchController.text),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.connectionState ==
-                                          ConnectionState.waiting) {
-                                        return Center(
-                                            child: CircularProgressIndicator());
-                                      } else if (snapshot.hasData) {
-                                        return Center(
-                                            child: CircularProgressIndicator());
-                                      } else if (snapshot.hasError) {
-                                        return Center(
-                                            child: Text(
-                                                'Error: ${snapshot.error}'));
-                                      } else {
-                                        return Obx(() {
-                                          if (transactionController
-                                              .isLoading.value) {
-                                            return CircularProgressIndicator();
-                                          } else {
-                                            if (transactionController
-                                                .transactions.isNotEmpty)
-                                              return Tabled(
-                                                tableData: transactionController
-                                                    .transactions,
-                                                space: 44,
-                                                number: transactionController
-                                                    .transactions.length,
-                                              );
-                                            else
-                                              return Center(
-                                                  child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 50.0),
-                                                child: Text(
-                                                    "No Transactions Found",
-                                                    style: TextStyle(
-                                                        color: black,
-                                                        fontSize: 22)),
-                                              ));
-                                          }
-                                        });
-                                      }
-                                    },
-                                  ),
+                                  child: TableConfigWidget(
+                                      sized: media.width * .021),
                                 ),
                                 Obx(() {
                                   if (transactionController

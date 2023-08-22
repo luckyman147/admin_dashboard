@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:karhabtiapp_dashboard_admin/model/table_controller.dart';
+// import 'package:google_fonts/google_fonts.dart';
+import 'package:karhabtiapp_dashboard_admin/model/counter.dart';
+// import 'package:karhabtiapp_dashboard_admin/model/table_controller.dart';
 import 'package:karhabtiapp_dashboard_admin/screens/buttons/dropdownbuttonProfile.dart';
-import 'package:karhabtiapp_dashboard_admin/screens/components/tables/tableData.dart';
+// import 'package:karhabtiapp_dashboard_admin/screens/components/tables/tableData.dart';
 import 'package:karhabtiapp_dashboard_admin/model/boolStates.dart';
-import 'package:provider/provider.dart';
+import 'package:karhabtiapp_dashboard_admin/screens/components/tables/tablesConfig.dart';
 
 import '../../../constants/constants.dart';
 import '../../../model/TransactionService.dart';
 import '../../../model/listController.dart';
 import '../../buttons/dropdownbutton.dart';
-import '../../components/header.dart';
 import '../../components/widgets/pres.dart';
 
 class Subs_screen extends StatefulWidget {
@@ -40,6 +40,7 @@ class _Subs_screenState extends State<Subs_screen> {
         Get.put(TransactionController());
     final BooleanStatesController bools = Get.put(BooleanStatesController());
     final DropdownController dropdownController = Get.put(DropdownController());
+    final counter = Get.put(CounterController());
     List<Map<String, dynamic>> filterByUserProfile(
         List<Map<String, dynamic>> inputList, String filter) {
       return inputList.where((map) => map['User Profile'] == filter).toList();
@@ -47,7 +48,6 @@ class _Subs_screenState extends State<Subs_screen> {
 
     var media = MediaQuery.sizeOf(context);
     List<String> options = ['ALL', 'B2C', 'B2B'];
-    int num = 5;
 
     return Padding(
         padding: const EdgeInsets.all(30.0),
@@ -73,8 +73,9 @@ class _Subs_screenState extends State<Subs_screen> {
                           Obx(() => buttonBar(
                                   "All Subscriptions", bools.isFirstActive, () {
                                 bools.activateFirst();
-                                transactionController
+                                final len = transactionController
                                     .filterByPaymentStatus('ALL');
+                                counter.set(len);
 
                                 // tableprovder.resetFilters();
                                 // tableprovder.tabledata = tableData;
@@ -85,14 +86,16 @@ class _Subs_screenState extends State<Subs_screen> {
                                     .transactions.isEmpty) {
                                   transactionController.resetData();
                                 }
-                                transactionController
+                                final len = transactionController
                                     .filterByPaymentStatus("Paid");
+                                counter.set(len);
                               })),
                           Obx(() =>
                               buttonBar("Unpaid", bools.isThirdActive, () {
                                 bools.activateThird();
-                                transactionController
+                                final len = transactionController
                                     .filterByPaymentStatus("Unpaid");
+                                counter.set(len);
                                 // tableprovder.filterByPayment("Unpaid");
                               })),
                         ],
@@ -148,50 +151,29 @@ class _Subs_screenState extends State<Subs_screen> {
                     ),
                   ),
                   RefreshIndicator(
-                    onRefresh: () {
-                      return Future.delayed(Duration(seconds: 1), () {
-                        setState(() {});
-                      });
-                    },
-                    child: FutureBuilder<void>(
-                      future: transactionController.SelectTransactionData(),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Center(child: CircularProgressIndicator());
-                        } else if (snapshot.hasError) {
-                          return Center(
-                              child: Text('Error: ${snapshot.error}'));
-                        } else {
-                          return Obx(() {
-                            if (transactionController.isLoading.value) {
-                              return CircularProgressIndicator();
-                            } else {
-                              return Tabled(
-                                tableData:
-                                    transactionController.filteredTransactions,
-                                space: media.width * .057,
-                                number: transactionController
-                                    .filteredTransactions.length,
-                              );
-                            }
-                          });
-                        }
+                      onRefresh: () {
+                        return Future.delayed(Duration(seconds: 1), () {
+                          setState(() {});
+                        });
                       },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 20.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        elevatedNE("Previous", () {}),
-                        elevatedNUmber("1", () {}, true),
-                        elevatedNUmber("2", () {}, false),
-                        elevatedNE("Next", () {}),
-                      ],
-                    ),
-                  )
+                      child: TableConfigWidget(sized: media.width * .0502)),
+                  Obx(() {
+                    if (transactionController.transactions.isNotEmpty)
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            elevatedNE("Previous", () {}),
+                            elevatedNUmber("1", () {}, true),
+                            elevatedNUmber("2", () {}, false),
+                            elevatedNE("Next", () {}),
+                          ],
+                        ),
+                      );
+                    else
+                      return Container();
+                  })
                 ],
               ),
             ),
