@@ -11,9 +11,9 @@ import 'package:karhabtiapp_dashboard_admin/screens/components/tables/tableData.
 // import 'package:google_fonts/google_fonts.dart';
 
 import '../../constants/constants.dart';
-import '../../model/TransactionService.dart';
-import '../../model/listController.dart';
-import '../../model/userService.dart';
+import '../../model/services/TransactionService.dart';
+import '../../model/Get/listController.dart';
+import '../../model/services/userService.dart';
 import '../buttons/dropdownbutton.dart';
 import '../buttons/dropdownbuttonProfile.dart';
 import '../components/tables/tablesConfig.dart';

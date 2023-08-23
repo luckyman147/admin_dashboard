@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:karhabtiapp_dashboard_admin/constants/constants.dart';
 
-import '../../../model/userService.dart';
-import '../../model/counter.dart';
+import '../../../model/services/userService.dart';
+import '../../../model/Get/counter.dart';
 
 class MyDialog extends StatefulWidget {
   @override

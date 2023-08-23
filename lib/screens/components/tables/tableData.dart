@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:karhabtiapp_dashboard_admin/model/TransactionService.dart';
-import 'package:karhabtiapp_dashboard_admin/model/boolStates.dart';
-import 'package:karhabtiapp_dashboard_admin/model/table_controller.dart';
-import 'package:karhabtiapp_dashboard_admin/screens/components/dialogueEditWidget.dart';
-import 'package:provider/provider.dart';
+import 'package:karhabtiapp_dashboard_admin/model/services/TransactionService.dart';
+// import 'package:karhabtiapp_dashboard_admin/model/Get/boolStates.dart';
+import 'package:karhabtiapp_dashboard_admin/model/Get/table_controller.dart';
+import 'package:karhabtiapp_dashboard_admin/screens/components/dialogue/dialogueEditWidget.dart';
 
 import '../../../constants/constants.dart';
-import '../../../model/counter.dart';
+import '../../../model/Get/counter.dart';
 
 class Tabled extends StatefulWidget {
   Tabled(
@@ -183,11 +182,6 @@ class _TabledState extends State<Tabled> {
                                     },
                                     child: SvgPicture.asset(
                                       "assets/icons/modify.svg",
-                                      // colorFilter:
-                                      //     ColorFilter.mode(
-                                      //         black,
-                                      //         BlendMode
-                                      //             .srcIn),
                                     ),
                                   ),
                                   InkWell(

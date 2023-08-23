@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:karhabtiapp_dashboard_admin/constants/constants.dart';
-import 'package:karhabtiapp_dashboard_admin/model/TransactionService.dart';
+import 'package:karhabtiapp_dashboard_admin/model/services/TransactionService.dart';
 
-import '../../../model/userService.dart';
-import '../../model/counter.dart';
-import '../../model/textfieldbools.dart';
+import '../../../model/services/userService.dart';
+import '../../../model/Get/counter.dart';
+import '../../../model/Get/textfieldbools.dart';
 
 class MyEditUserDialog extends StatefulWidget {
   final int id;

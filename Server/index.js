@@ -3,6 +3,8 @@ const app=express()
 const db=require('./models')
 const userRoutes=require('./routes/user-routes')
 const TransactionRoutes=require('./routes/Transaction-route')
+const ReceiveEmailRoutes=require('./routes/email-route')
+const Myemail=require('./routes/Myemail.-route')
 
 
 
@@ -10,6 +12,8 @@ app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 app.use('/',userRoutes)
 app.use('/',TransactionRoutes)
+app.use('/',ReceiveEmailRoutes)
+app.use('/',Myemail)
 
 db.sequelize.sync().then(()=>{
     app.listen(3000,()=>{

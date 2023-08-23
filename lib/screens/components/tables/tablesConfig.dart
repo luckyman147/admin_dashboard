@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:karhabtiapp_dashboard_admin/model/counter.dart';
+import 'package:karhabtiapp_dashboard_admin/model/Get/counter.dart';
 import 'package:karhabtiapp_dashboard_admin/screens/components/tables/tableData.dart';
 
 import '../../../constants/constants.dart';
-import '../../../model/TransactionService.dart';
+import '../../../model/services/TransactionService.dart';
 
 class TableConfigWidget extends StatefulWidget {
   final double sized;
@@ -47,16 +47,6 @@ class _TableConfigWidgetState extends State<TableConfigWidget> {
                     ? transactionController.filteredTransactions.length
                     : counter.count.value,
               );
-            } else if (counter.count.value == 0) {
-              return Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 50.0),
-                  child: Text(
-                    "No Transactions Found",
-                    style: TextStyle(color: black, fontSize: 22),
-                  ),
-                ),
-              );
             } else {
               return Center(
                 child: Padding(
@@ -79,36 +69,16 @@ class _TableConfigWidgetState extends State<TableConfigWidget> {
           return Obx(() {
             if (transactionController.isLoading.value) {
               return CircularProgressIndicator();
-            } else if (transactionController.filteredTransactions.length == 0) {
+            } else {
               return Center(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 50.0),
                   child: Text(
-                    "No Transactions Found",
+                    "No DATA Found",
                     style: TextStyle(color: black, fontSize: 22),
                   ),
                 ),
               );
-            } else {
-              if (transactionController.transactions.isNotEmpty)
-                return Tabled(
-                  tableData: transactionController.filteredTransactions,
-                  space: widget.sized,
-                  number: counter.count.value >
-                          transactionController.filteredTransactions.length
-                      ? transactionController.filteredTransactions.length
-                      : counter.count.value,
-                );
-              else
-                return Center(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 50.0),
-                    child: Text(
-                      "No Transactions Found",
-                      style: TextStyle(color: black, fontSize: 22),
-                    ),
-                  ),
-                );
             }
           });
         }

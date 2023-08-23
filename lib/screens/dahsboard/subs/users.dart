@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+// import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:karhabtiapp_dashboard_admin/model/counter.dart';
+import 'package:karhabtiapp_dashboard_admin/model/Get/counter.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:karhabtiapp_dashboard_admin/screens/buttons/dropdownbutton.dart';
-import 'package:karhabtiapp_dashboard_admin/screens/components/dialogueAddWidget.dart';
+import 'package:karhabtiapp_dashboard_admin/screens/components/dialogue/dialogueAddWidget.dart';
 // import 'package:karhabtiapp_dashboard_admin/screens/components/tableData.dart';
 
 import '../../../constants/constants.dart';
 // import '../../buttons/dropdownbutton.dart';
 // import '../../components/header.dart';
-import '../../../model/listController.dart';
-import '../../../model/userService.dart';
+import '../../../model/Get/listController.dart';
+import '../../../model/services/userService.dart';
 import '../../buttons/dropdownbuttonProfile.dart';
-import '../../components/header.dart';
+// import '../../components/header.dart';
 import '../../components/widgets/pres.dart';
 import '../../components/tables/tableDataUsers.dart';
 
@@ -43,7 +43,7 @@ class _User_screenState extends State<User_screen> {
     // bool active = true;
     // bool active2 = false;
     List<String> options = ['ALL', 'B2C', 'B2B'];
-    int num = 5;
+
     // bool active3 = false;
     return Padding(
         padding: const EdgeInsets.all(30.0),
@@ -131,7 +131,10 @@ class _User_screenState extends State<User_screen> {
                               return TabledUser(
                                 tableData: userController.filteredUsers,
                                 space: MediaQuery.sizeOf(context).width * .057,
-                                number: counter.count.value,
+                                number: counter.count.value >
+                                        userController.filteredUsers.length
+                                    ? userController.filteredUsers.length
+                                    : counter.count.value,
                               );
                             else
                               return Center(
@@ -157,21 +160,12 @@ class _User_screenState extends State<User_screen> {
                             if (userController.isLoading.value) {
                               return CircularProgressIndicator();
                             } else {
-                              if (userController.Users.isEmpty)
-                                return Center(
-                                  child: Text(
-                                    "No Data found ",
-                                    style:
-                                        TextStyle(color: black, fontSize: 22),
-                                  ),
-                                );
-                              else
-                                return TabledUser(
-                                  tableData: userController.filteredUsers,
-                                  space:
-                                      MediaQuery.sizeOf(context).width * .057,
-                                  number: counter.count.value,
-                                );
+                              return Center(
+                                child: Text(
+                                  "No Data found ",
+                                  style: TextStyle(color: black, fontSize: 22),
+                                ),
+                              );
                             }
                           });
                         }

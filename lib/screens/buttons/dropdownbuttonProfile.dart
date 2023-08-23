@@ -2,11 +2,11 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:karhabtiapp_dashboard_admin/model/counter.dart';
+import 'package:karhabtiapp_dashboard_admin/model/Get/counter.dart';
 
-import '../../model/TransactionService.dart';
-import '../../model/listController.dart';
-import '../../model/userService.dart';
+import '../../model/services/TransactionService.dart';
+import '../../model/Get/listController.dart';
+import '../../model/services/userService.dart';
 
 class DRopdownPROFILMethod extends StatefulWidget {
   const DRopdownPROFILMethod(

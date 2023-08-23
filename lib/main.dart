@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:karhabtiapp_dashboard_admin/model/CalendarViewController.dart';
-import 'package:karhabtiapp_dashboard_admin/model/NumberController.dart';
-import 'package:karhabtiapp_dashboard_admin/model/TransactionService.dart';
-import 'package:karhabtiapp_dashboard_admin/model/boolStates.dart';
-import 'package:karhabtiapp_dashboard_admin/model/counter.dart';
-import 'package:karhabtiapp_dashboard_admin/model/table_controller.dart';
-import 'package:karhabtiapp_dashboard_admin/model/userService.dart';
+import 'package:karhabtiapp_dashboard_admin/model/Get/CalendarViewController.dart';
+import 'package:karhabtiapp_dashboard_admin/model/Get/NumberController.dart';
+import 'package:karhabtiapp_dashboard_admin/model/services/TransactionService.dart';
+import 'package:karhabtiapp_dashboard_admin/model/Get/boolStates.dart';
+import 'package:karhabtiapp_dashboard_admin/model/Get/counter.dart';
+
+import 'package:karhabtiapp_dashboard_admin/model/services/userService.dart';
 import 'package:karhabtiapp_dashboard_admin/screens/main/Application.dart';
 import 'package:karhabtiapp_dashboard_admin/screens/main/Email.dart';
 // import 'package:karhabtiapp_dashboard_admin/screens/main/Application.dart';
@@ -16,7 +16,7 @@ import 'package:karhabtiapp_dashboard_admin/screens/main/Email.dart';
 import 'package:karhabtiapp_dashboard_admin/screens/main/calendar.dart';
 import 'package:karhabtiapp_dashboard_admin/screens/main/mainScreen.dart';
 // import 'package:karhabtiapp_dashboard_admin/screens/main/mainScreen.dart';
-import 'package:provider/provider.dart';
+
 import 'constants/constants.dart';
 
 void main() {

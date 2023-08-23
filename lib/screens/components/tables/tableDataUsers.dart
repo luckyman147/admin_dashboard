@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:karhabtiapp_dashboard_admin/model/counter.dart';
-import 'package:karhabtiapp_dashboard_admin/model/userService.dart';
+import 'package:karhabtiapp_dashboard_admin/model/Get/counter.dart';
+import 'package:karhabtiapp_dashboard_admin/model/services/userService.dart';
 
 import '../../../constants/constants.dart';
-import '../../../model/table_Usercontroller.dart';
+import '../../../model/Get/table_Usercontroller.dart';
 import '../../functions/date.dart';
-import '../dialogueEditUserWidget .dart';
+import '../dialogue/dialogueEditUserWidget .dart';
 
 class TabledUser extends StatefulWidget {
   TabledUser(

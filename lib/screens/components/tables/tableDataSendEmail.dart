@@ -1,33 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:karhabtiapp_dashboard_admin/model/Get/counter.dart';
-import 'package:karhabtiapp_dashboard_admin/model/services/ReceiveEmailService.dart';
-import 'package:karhabtiapp_dashboard_admin/screens/components/dialogue/dialogueAddEmailWidget.dart';
-import 'package:karhabtiapp_dashboard_admin/screens/components/dialogue/dialogueEmailInfoWidget.dart';
-import 'package:karhabtiapp_dashboard_admin/screens/functions/para.dart';
+import 'package:karhabtiapp_dashboard_admin/model/services/SenderEmailService.dart';
 
 import '../../../constants/constants.dart';
-import '../../../model/Get/Table_EmailController.dart';
+// import '../../../model/Get/Table_EmailController.dart';
+import '../../../model/Get/Table_SendEmailController.dart';
+import '../../../model/Get/counter.dart';
 import '../../functions/date.dart';
+import '../../functions/para.dart';
+import '../dialogue/dialogueAddEmailWidget.dart';
+import '../dialogue/dialogueEmailInfoWidget.dart';
 
-class TableEmail extends StatefulWidget {
-  TableEmail(
+class TableSendEmail extends StatefulWidget {
+  TableSendEmail(
       {required this.tableData, required this.space, required this.number});
   double space;
   double number;
   List<Map<String, dynamic>> tableData;
   @override
-  State<TableEmail> createState() => _TableEmailState();
+  State<TableSendEmail> createState() => _TableSendEmailState();
 }
 
-class _TableEmailState extends State<TableEmail> {
+final SendEmailController sendcontroller = Get.put(SendEmailController());
+
+class _TableSendEmailState extends State<TableSendEmail> {
   @override
   Widget build(BuildContext context) {
     final counter = Get.put(CounterController());
-    final sendcontroller = Get.put(EmailController());
+
     final tableController =
-        Get.put(TableEmailStatesController(widget.tableData.length));
+        Get.put(TableSendEmailStatesController(widget.tableData.length));
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 1),
       child: SizedBox(
@@ -43,18 +46,12 @@ class _TableEmailState extends State<TableEmail> {
             sortAscending: true,
 
             columnSpacing: widget.space,
-            // dividerThickness: 100,
             showCheckboxColumn: true,
             horizontalMargin: 12,
-            // headingRowColor: MaterialStateColor.resolveWith((states) {
-            //   if (states.contains(MaterialState.selected)) {
-            //     return secondaryColor;
-            //   }
-            //   return primaryColor;
-            // }),
+
             dataRowColor: MaterialStateColor.resolveWith((states) {
               if (states.contains(MaterialState.selected)) {
-                return secondaryColor;
+                return primaryColor;
               }
 
               return Colors.white;
@@ -67,9 +64,11 @@ class _TableEmailState extends State<TableEmail> {
                           FavoriteAll(tableController)
                         ],
                       ))),
+              // DataColumn(label: Text("")),
               DataColumn(label: Text("")),
               DataColumn(label: Text("")),
               DataColumn(label: Text("")),
+              // DataColumn(label: Text("")),
               DataColumn(label: Text("")),
             ],
             rows: List<DataRow>.generate(
@@ -78,16 +77,17 @@ class _TableEmailState extends State<TableEmail> {
                         onLongPress: () {
                           showDialog(
                               context: context,
-                              builder: (BuildContext context) =>
-                                  EmailInfoAlertDialog(
+                              builder: (_) => EmailInfoAlertDialog(
                                     email: widget.tableData[index]['email'],
+                                    subject: widget.tableData[index]
+                                        ['SendSubject'],
+                                    description: widget.tableData[index]
+                                        ['SendEmailDescription'],
                                     date: formatDateString(
                                         widget.tableData[index]['Date']),
-                                    subject: widget.tableData[index]['Subject'],
-                                    description: widget.tableData[index]
-                                        ['EmailDescription'],
                                   ));
                         },
+
                         // color: MaterialStateColor.resolveWith((states) {
                         //   if (states.contains(MaterialState.selected)) {
                         //     return secondaryColor;
@@ -105,16 +105,16 @@ class _TableEmailState extends State<TableEmail> {
                                   Favorite(index, tableController)
                                 ],
                               ))),
-                          // DataCell(check(false)),
+                          // DataCell(Obx(() => Favorite(index, tableController))),
                           DataCell(Text(
-                            widget.tableData[index]['EmailUsername'],
+                            extractUsername(widget.tableData[index]['email']),
                             style: colu(24, FontWeight.bold, black),
                           )),
                           DataCell(Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                widget.tableData[index]['Subject'],
+                                widget.tableData[index]['SendSubject'],
                                 style: colu(27, FontWeight.w400, black),
                               ),
                               Padding(
@@ -122,7 +122,7 @@ class _TableEmailState extends State<TableEmail> {
                                 child: Text(
                                   limitParagraphLength(
                                       widget.tableData[index]
-                                          ['EmailDescription'],
+                                          ['SendEmailDescription'],
                                       50),
                                   style: colu(27, FontWeight.w100, textColor),
                                 ),
@@ -130,10 +130,9 @@ class _TableEmailState extends State<TableEmail> {
                             ],
                           )),
                           DataCell(Text(
-                            formatDateString(widget.tableData[index]['Date']),
+                            "${formatDateString(widget.tableData[index]['Date'])}",
                             style: colu(22, FontWeight.w400, black),
                           )),
-
                           DataCell(Obx(() {
                             if (!tableController.activationList[index].value) {
                               return InkWell(
@@ -150,7 +149,7 @@ class _TableEmailState extends State<TableEmail> {
                               return InkWell(
                                 onTap: () async {
                                   final sucess =
-                                      await sendcontroller.deleteEmail(
+                                      await sendcontroller.deleteSendEmail(
                                           widget.tableData[index]['id']);
                                   counter.decrement();
                                   showCustomSnackbar(sucess, "deleted");
@@ -168,7 +167,7 @@ class _TableEmailState extends State<TableEmail> {
     );
   }
 
-  IconButton Favorite(int index, TableEmailStatesController controller) {
+  IconButton Favorite(int index, TableSendEmailStatesController controller) {
     return IconButton(
       focusColor: bgColor,
       splashColor: bgColor,
@@ -193,7 +192,7 @@ class _TableEmailState extends State<TableEmail> {
     );
   }
 
-  IconButton FavoriteAll(TableEmailStatesController controller) {
+  IconButton FavoriteAll(TableSendEmailStatesController controller) {
     return IconButton(
       focusColor: bgColor,
       splashColor: bgColor,
@@ -218,8 +217,9 @@ class _TableEmailState extends State<TableEmail> {
     );
   }
 
-  Checkbox check(int index, TableEmailStatesController controller) {
+  Checkbox check(int index, TableSendEmailStatesController controller) {
     print("Index: $index, Activation List: ${controller.activationList}");
+    print("Index: $index, favorite List: ${controller.favorite}");
     return Checkbox(
       activeColor: secondaryColor,
       fillColor: MaterialStateColor.resolveWith((states) {
@@ -244,7 +244,7 @@ class _TableEmailState extends State<TableEmail> {
     );
   }
 
-  Checkbox checkAll(TableEmailStatesController controller) {
+  Checkbox checkAll(TableSendEmailStatesController controller) {
     return Checkbox(
       activeColor: secondaryColor,
       fillColor: MaterialStateColor.resolveWith((states) {

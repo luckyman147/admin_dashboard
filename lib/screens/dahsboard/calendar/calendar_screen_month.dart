@@ -3,12 +3,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:karhabtiapp_dashboard_admin/screens/components/widgets/schedule.dart';
 import 'package:karhabtiapp_dashboard_admin/screens/components/tables/tableDataEmail.dart';
-import 'package:karhabtiapp_dashboard_admin/model/boolStates.dart';
+import 'package:karhabtiapp_dashboard_admin/model/Get/boolStates.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 import '../../../constants/constants.dart';
-import '../../../model/CalendarViewController.dart';
+import '../../../model/Get/CalendarViewController.dart';
 
 class Calendar_screen_month extends StatefulWidget {
   const Calendar_screen_month({

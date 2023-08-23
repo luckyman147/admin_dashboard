@@ -2,16 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:karhabtiapp_dashboard_admin/model/counter.dart';
-// import 'package:karhabtiapp_dashboard_admin/model/NumberController.dart';
-// import 'package:karhabtiapp_dashboard_admin/screens/main/Application.dart';
-// import 'package:karhabtiapp_dashboard_admin/screens/main/mainScreen.dart';
-// import 'package:provider/provider.dart';
+import 'package:karhabtiapp_dashboard_admin/model/Get/counter.dart';
 
 import '../../constants/constants.dart';
-import '../../model/boolStates.dart';
-import '../main/Email.dart';
-import '../main/calendar.dart';
+import '../../model/Get/boolStates.dart';
 
 class Draweer extends StatefulWidget {
   const Draweer({required this.page, required this.isActive, super.key});
@@ -25,10 +19,6 @@ class _DraweerState extends State<Draweer> {
   final counter = Get.put(CounterController());
   @override
   Widget build(BuildContext context) {
-    bool IsApp = false;
-    // final boolProvider = Provider.of<BooleanStatesProvider>(context);
-    // final numberprovider = Provider.of<NumberProvider>(context);
-
     final deviceSize = MediaQuery.of(context).size;
 
     return AnimatedContainer(
@@ -48,11 +38,16 @@ class _DraweerState extends State<Draweer> {
                     margin: EdgeInsets.all(23),
                     padding: EdgeInsets.symmetric(horizontal: 1, vertical: 4),
                     child: Center(
-                      child: Image.asset(
-                        "assets/img/karhaba.png",
-                        fit: BoxFit.contain,
-                        height: 100,
-                        width: 100,
+                      child: InkWell(
+                        onTap: () {
+                          Get.toNamed("/");
+                        },
+                        child: Image.asset(
+                          "assets/img/karhaba.png",
+                          fit: BoxFit.contain,
+                          height: 100,
+                          width: 100,
+                        ),
                       ),
                     ),
                   ),
@@ -67,7 +62,7 @@ class _DraweerState extends State<Draweer> {
                           boolController.deactivate();
                           boolController.activateFirst();
                         }
-                        counter.reset();
+                        counter.reset(1);
                         Get.toNamed('/');
                       },
                       isactive: widget.page == 1),
@@ -99,7 +94,7 @@ class _DraweerState extends State<Draweer> {
                                       : boolController.number,
                                   functio: () {
                                     boolController.setTo1();
-                                    counter.reset();
+                                    counter.reset(3);
                                     boolController.activateFirst();
                                     Get.toNamed("/Subs");
                                   }),
@@ -110,7 +105,7 @@ class _DraweerState extends State<Draweer> {
                                       : boolController.number,
                                   functio: () {
                                     boolController.setTo2();
-                                    counter.reset();
+                                    counter.reset(3);
                                     boolController.activateFirst();
                                     Get.toNamed("/users");
                                   })
@@ -127,8 +122,9 @@ class _DraweerState extends State<Draweer> {
                           boolController.resetTo0();
 
                           boolController.deactivate();
-                          counter.reset();
+                          counter.reset(3);
                         }
+                        boolController.activateFirst();
                         Get.toNamed("/email");
                       },
                       isactive: widget.page == 3),

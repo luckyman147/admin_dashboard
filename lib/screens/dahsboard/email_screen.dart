@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+// import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:karhabtiapp_dashboard_admin/screens/components/dialogue/dialogueAddEmailWidget.dart';
 import 'package:karhabtiapp_dashboard_admin/screens/components/tables/tableDataEmail.dart';
 
 import '../../constants/constants.dart';
-import '../../model/listController.dart';
-import '../buttons/dropdownbutton.dart';
-import '../buttons/dropdownbuttonProfile.dart';
+import '../../model/Get/boolStates.dart';
+import '../../model/services/ReceiveEmailService.dart';
+import '../../model/Get/counter.dart';
+import '../../model/Get/listController.dart';
+// import '../buttons/dropdownbutton.dart';
+// import '../buttons/dropdownbuttonProfile.dart';
+import '../../model/services/SenderEmailService.dart';
+import '../components/tables/tableDataSendEmail.dart';
 import '../components/widgets/pres.dart';
-import '../components/tables/tableDataUsers.dart';
+// import '../components/tables/tableDataUsers.dart';
 
 class Email_screen extends StatefulWidget {
   const Email_screen({super.key});
@@ -18,58 +24,17 @@ class Email_screen extends StatefulWidget {
 }
 
 class _Email_screenState extends State<Email_screen> {
-  List<String> options = ['ALL', 'B2C', 'B2B'];
+  final EmailController emailcontroller = Get.put(EmailController());
+  final SendEmailController Sendemailcontroller =
+      Get.put(SendEmailController());
   final DropdownController dropdownController = Get.put(DropdownController());
+  final CounterController counter = Get.put(CounterController());
+  final BooleanStatesController bools = Get.put(BooleanStatesController());
 
   @override
   Widget build(BuildContext context) {
-    bool active = true;
-    bool active2 = false;
-    bool active3 = false;
-    final tableEmail = [
-      {
-        "index": false,
-        "Email": "John Doe",
-        "Message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
-        "Description": "Lorem ipsum  ",
-        "Date": "12 Janvier",
-        "read": false
-      },
-      {
-        "index": false,
-        "Email": "John Doe",
-        "Message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
-        "Description": "Lorem ipsum  ",
-        "Date": "12 Janvier",
-        "read": false
-      },
-      {
-        "index": false,
-        "Email": "John Doe",
-        "Message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
-        "Description": "Lorem ipsum  ",
-        "Date": "12 Janvier",
-        "read": true
-      },
-      {
-        "index": true,
-        "Email": "John Doe",
-        "Message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
-        "Description": "Lorem ipsum  ",
-        "Date": "12 Janvier",
-        "read": true
-      },
-      {
-        "index": false,
-        "Email": "John Doe",
-        "Message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
-        "Description": "Lorem ipsum  ",
-        "Date": "12 Janvier",
-        "read": true
-      },
-    ];
-
-    final media = MediaQuery.sizeOf(context);
+    // final media = MediaQuery.sizeOf(context);
+    // var Email = EMail();
     return Padding(
         padding: const EdgeInsets.all(30.0),
         child: Container(
@@ -87,9 +52,15 @@ class _Email_screenState extends State<Email_screen> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      buttonBar("Inbox", active, () {}),
-                      buttonBar("Sent", active2, () {}),
-                      buttonBar("Favorites", active3, () {}),
+                      Obx(() => buttonBar("Inbox", bools.isFirstActive, () {
+                            bools.activateFirst();
+                          })),
+                      Obx(() => buttonBar("Sent", bools.isSecondActive, () {
+                            bools.activateSecond();
+                          })),
+                      Obx(() => buttonBar("Favorites", bools.isThirdActive, () {
+                            bools.activateThird();
+                          })),
                     ],
                   ),
                 ),
@@ -106,7 +77,7 @@ class _Email_screenState extends State<Email_screen> {
                             "Show",
                             style: row,
                           ),
-                          press(),
+                          const press(),
                           Text(
                             "Rows",
                             style: row,
@@ -115,62 +86,159 @@ class _Email_screenState extends State<Email_screen> {
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 40.0),
                             child: addThing(
-                                "New Message", "assets/icons/Edit.svg", () {}),
+                                "New Message", "assets/icons/Edit.svg", () {
+                              showDialog(
+                                  context: context,
+                                  builder: (_) => EmailAlertDialog());
+                            }),
                           ),
                         ],
                       ),
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //   children: [
-                      //     Padding(
-                      //       padding:
-                      //           const EdgeInsets.symmetric(horizontal: 8.0),
-                      //       child: Container(
-                      //           height: 45,
-                      //           decoration: BoxDecoration(
-                      //               border: Border.all(color: primaryColor)),
-                      //           child: Obx(() => DRopdownPROFILMethod(
-                      //               first: dropdownController.firstcopy.value,
-                      //               list: options))),
-                      //     ),
-                      //     // Padding(
-                      //     //   padding:
-                      //     //       const EdgeInsets.symmetric(horizontal: 3.0),
-                      //     //   child: Container(
-                      //     //       height: 45,
-                      //     //       decoration: BoxDecoration(
-                      //     //           border: Border.all(color: primaryColor)),
-                      //     //       child: Obx(() => DRopdownYearMethod(
-                      //     //           first: dropdownController.year.value,
-                      //     //           list: dropdownController.years))),
-                      //     // ),
-                      //   ],
-                      // )
                     ],
                   ),
                 ),
-                TableEmail(
-                  tableData: tableEmail,
-                  space: media.width * .017,
-                  height: media.height * .092,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 20.0, horizontal: 70),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      elevatedNE("Previous", () {}),
-                      elevatedNUmber("1", () {}, true),
-                      elevatedNUmber("2", () {}, false),
-                      elevatedNUmber("3", () {}, false),
-                      elevatedNE("Next", () {}),
-                    ],
-                  ),
-                )
+                Obx(() =>
+                    Visibility(visible: bools.isFirstActive, child: EMail())),
+                Obx(() => Visibility(
+                    visible: bools.isSecondActive, child: SendEMail())),
+                Obx(() {
+                  if (emailcontroller.Emails.isNotEmpty ||
+                      Sendemailcontroller.SendEmails.isNotEmpty)
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20.0, horizontal: 70),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          elevatedNE("Previous", () {}),
+                          elevatedNUmber("1", () {}, true),
+                          elevatedNUmber("2", () {}, false),
+                          elevatedNUmber("3", () {}, false),
+                          elevatedNE("Next", () {}),
+                        ],
+                      ),
+                    );
+                  else
+                    return Container();
+                }),
               ],
             ),
           ),
         ));
+  }
+
+  Expanded EMail() {
+    return Expanded(
+      child: RefreshIndicator(
+        onRefresh: () {
+          return Future.delayed(Duration(seconds: 1), () {
+            setState(() {});
+          });
+        },
+        child: FutureBuilder<void>(
+          future: emailcontroller.SelectEmailData(),
+          builder: (context, snapshot) {
+            // print(snapshot);
+            if (snapshot.connectionState == ConnectionState.done) {
+              return Obx(() {
+                if (emailcontroller.Emails.isNotEmpty) {
+                  return TableEmail(
+                    tableData: emailcontroller.filteredEmails,
+                    space: MediaQuery.sizeOf(context).width * .087,
+                    number: counter.count.value >
+                            emailcontroller.filteredEmails.length
+                        ? emailcontroller.filteredEmails.length * 1
+                        : counter.count.value * 1,
+                  );
+                } else {
+                  return Center(
+                      child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 50.0),
+                    child: Text("No Emails Found",
+                        style: TextStyle(color: black, fontSize: 22)),
+                  ));
+                }
+              });
+            }
+
+            // print(EmailController.searchController);
+            else if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else {
+              return Obx(() {
+                if (emailcontroller.isLoading.value) {
+                  return CircularProgressIndicator();
+                } else {
+                  return Center(
+                    child: Text(
+                      "No Data found ",
+                      style: TextStyle(color: black, fontSize: 22),
+                    ),
+                  );
+                }
+              });
+            }
+          },
+        ),
+      ),
+    );
+  }
+
+  Expanded SendEMail() {
+    return Expanded(
+      child: RefreshIndicator(
+        onRefresh: () {
+          return Future.delayed(Duration(seconds: 1), () {
+            setState(() {});
+          });
+        },
+        child: FutureBuilder<void>(
+          future: Sendemailcontroller.SelectSendEmailData(),
+          builder: (context, snapshot) {
+            // print(snapshot);
+            if (snapshot.connectionState == ConnectionState.done) {
+              return Obx(() {
+                if (Sendemailcontroller.SendEmails.isNotEmpty) {
+                  return TableSendEmail(
+                    tableData: Sendemailcontroller.filteredSendEmails,
+                    space: MediaQuery.sizeOf(context).width * .08,
+                    number: counter.count.value >
+                            Sendemailcontroller.SendEmails.length
+                        ? Sendemailcontroller.SendEmails.length * 1
+                        : counter.count.value * 1,
+                  );
+                } else {
+                  return Center(
+                      child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 50.0),
+                    child: Text("No Emails Found",
+                        style: TextStyle(color: black, fontSize: 22)),
+                  ));
+                }
+              });
+            } else if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else {
+              return Obx(() {
+                if (Sendemailcontroller.isLoading.value) {
+                  return CircularProgressIndicator();
+                } else {
+                  return Center(
+                    child: Text(
+                      "No Data found ",
+                      style: TextStyle(color: black, fontSize: 22),
+                    ),
+                  );
+                }
+              });
+            }
+          },
+        ),
+      ),
+    );
   }
 }
