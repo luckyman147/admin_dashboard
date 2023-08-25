@@ -381,7 +381,7 @@ class _MyEditUserDialogState extends State<MyEditUserDialog> {
     print(editedUser);
     bool success = await userController.editUser(widget.id, editedUser);
 
-    showCustomSnackbar(success, "Edited");
+    showCustomSnackbar(success, "Edited","User");
     // counter.increment();
 
     // Call your addUser function or update logic here

@@ -321,7 +321,7 @@ class _MyEditDialogState extends State<MyEditDialog> {
     // await userController.addUser(newUser);
     bool success =
         await transController.editTransactionPaymentStatus(widget.id, newTrans);
-    showCustomSnackbar(success, "Edited");
+    showCustomSnackbar(success, "Edited","Transaction");
     // counter.increment();
 
     // Call your addUser function or update logic here

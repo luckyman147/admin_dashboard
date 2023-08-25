@@ -190,7 +190,8 @@ class _TabledState extends State<Tabled> {
                                           .deleteTransaction(
                                               widget.tableData[index]['id']);
                                       counter.decrement();
-                                      showCustomSnackbar(sucess, "deleted");
+                                      showCustomSnackbar(
+                                          sucess, "deleted", "Transaction");
                                     },
                                     child: SvgPicture.asset(
                                       "assets/icons/delete.svg",

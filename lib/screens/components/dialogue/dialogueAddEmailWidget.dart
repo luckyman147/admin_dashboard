@@ -142,7 +142,7 @@ class _EmailAlertDialogState extends State<EmailAlertDialog> {
       'SendEmailDescription': SendDesc,
     };
     bool success = await sendController.addSendEmail(newemail);
-    showCustomSnackbar(success, "Added");
+    showCustomSnackbar(success, "Added","Email");
 
     // counter.increment();
 

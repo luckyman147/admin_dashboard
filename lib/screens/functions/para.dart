@@ -22,3 +22,8 @@ String limitParagraphLength(String paragraph, int maxLength) {
     return paragraph.substring(0, lastSpaceIndex);
   }
 }
+
+String capitalizeFirstLetter(String input) {
+  if (input.isEmpty) return input;
+  return input[0].toUpperCase() + input.substring(1);
+}

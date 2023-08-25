@@ -140,7 +140,8 @@ class _TabledUserState extends State<TabledUser> {
                                         await userController.deleteUser(
                                             widget.tableData[index]['id']);
                                     counter.decrement();
-                                    showCustomSnackbar(success, "deleted");
+                                    showCustomSnackbar(
+                                        success, "deleted", "User");
                                   },
                                   child: SvgPicture.asset(
                                     "assets/icons/delete.svg",

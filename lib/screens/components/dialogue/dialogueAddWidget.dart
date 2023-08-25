@@ -189,7 +189,7 @@ class _MyDialogState extends State<MyDialog> {
     };
     // await userController.addUser(newUser);
     bool success = await userController.addUser(newUser);
-    showCustomSnackbar(success, "Added");
+    showCustomSnackbar(success, "Added", "User");
     counter.increment();
 
     // Call your addUser function or update logic here

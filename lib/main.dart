@@ -40,15 +40,7 @@ class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return
-        // MultiProvider(
-        //   providers: [
-        //     ChangeNotifierProvider.value(value: BooleanStatesProvider()),
-        //     ChangeNotifierProvider.value(value: CalendarViewProvider()),
-        //     ChangeNotifierProvider.value(value: TableStatesProvider()),
-        //     ChangeNotifierProvider.value(value: NumberProvider()),
-        //   ],
-        //   child: Consumer(
-        //       builder: (BuildContext context, value, Widget? child) =>
+        //
         GetMaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Admin dashboard',

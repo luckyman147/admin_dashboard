@@ -182,9 +182,9 @@ final columnRO = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w500,
     color: black);
-void showCustomSnackbar(bool success, String status) {
+void showCustomSnackbar(bool success, String status, String type) {
   Get.snackbar(success ? 'Success' : "Error",
-      success ? 'User ${status} successfully' : 'User ${status} Failed',
+      success ? '$type $status successfully' : '${type} ${status} Failed',
       snackPosition: SnackPosition.BOTTOM,
       backgroundColor: success ? Colors.green : Colors.red,
       colorText: Colors.white,

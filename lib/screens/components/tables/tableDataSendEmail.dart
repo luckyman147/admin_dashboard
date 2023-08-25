@@ -152,7 +152,8 @@ class _TableSendEmailState extends State<TableSendEmail> {
                                       await sendcontroller.deleteSendEmail(
                                           widget.tableData[index]['id']);
                                   counter.decrement();
-                                  showCustomSnackbar(sucess, "deleted");
+                                  showCustomSnackbar(
+                                      sucess, "deleted", "Email");
                                 },
                                 child: SvgPicture.asset(
                                   "assets/icons/delete.svg",
