@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 // import 'package:karhabtiapp_dashboard_admin/screens/dahsboard/Complaint/Complaint_screen_week.dart';
-import 'package:karhabtiapp_dashboard_admin/screens/dahsboard/email_screen.dart';
-import 'package:karhabtiapp_dashboard_admin/screens/dahsboard/subs/users.dart';
+import 'package:karhabtiapp_dashboard_admin/screens/screens/email/email_screen.dart';
+import 'package:karhabtiapp_dashboard_admin/screens/screens/subs/users.dart';
 
-import '../../constants/constants.dart';
-import '../../responsive.dart';
-import '../components/Draweer.dart';
-import '../components/header.dart';
+import '../../../constants/constants.dart';
+import '../../../responsive.dart';
+import '../../components/Draweer.dart';
+import '../../components/header.dart';
 // import '../dahsboard/Complaint/Complaint_screen.dart';
-import '../dahsboard/complaints_screen.dart';
-import '../dahsboard/subs/SUbs_screen.dart';
+import 'complaints_screen.dart';
+import '../subs/SUbs_screen.dart';
 
 class Complaint extends StatefulWidget {
   const Complaint({super.key});

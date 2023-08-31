@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:karhabtiapp_dashboard_admin/model/Get/CalendarViewController.dart';
+import 'package:karhabtiapp_dashboard_admin/model/Get/calenderController/CalendarViewController.dart';
 import 'package:karhabtiapp_dashboard_admin/model/services/appoitementService.dart';
 import 'package:karhabtiapp_dashboard_admin/screens/components/widgets/schedule.dart';
 import 'package:karhabtiapp_dashboard_admin/screens/functions/color.dart';

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:karhabtiapp_dashboard_admin/model/Get/counter.dart';
+import 'package:karhabtiapp_dashboard_admin/model/Get/countcontroller/counter.dart';
 import 'package:karhabtiapp_dashboard_admin/model/services/ReceiveEmailService.dart';
 import 'package:karhabtiapp_dashboard_admin/screens/components/dialogue/dialogueAddEmailWidget.dart';
 import 'package:karhabtiapp_dashboard_admin/screens/components/dialogue/dialogueEmailInfoWidget.dart';
 import 'package:karhabtiapp_dashboard_admin/screens/functions/para.dart';
 
 import '../../../constants/constants.dart';
-import '../../../model/Get/Table_EmailController.dart';
+import '../../../model/Get/tablescontroller/Table_EmailController.dart';
 import '../../functions/date.dart';
 
 class TableEmail extends StatefulWidget {
@@ -153,7 +153,8 @@ class _TableEmailState extends State<TableEmail> {
                                       await sendcontroller.deleteEmail(
                                           widget.tableData[index]['id']);
                                   counter.decrement();
-                                  showCustomSnackbar(sucess, "deleted","Email");
+                                  showCustomSnackbar(
+                                      sucess, "deleted", "Email");
                                 },
                                 child: SvgPicture.asset(
                                   "assets/icons/delete.svg",

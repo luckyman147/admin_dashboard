@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:karhabtiapp_dashboard_admin/screens/dahsboard/email_screen.dart';
-import 'package:karhabtiapp_dashboard_admin/screens/dahsboard/subs/users.dart';
+import 'package:karhabtiapp_dashboard_admin/screens/screens/email/email_screen.dart';
+import 'package:karhabtiapp_dashboard_admin/screens/screens/subs/users.dart';
 
-import '../../constants/constants.dart';
-import '../../responsive.dart';
-import '../components/Draweer.dart';
-import '../components/header.dart';
-import '../dahsboard/subs/SUbs_screen.dart';
+import '../../../constants/constants.dart';
+import '../../../responsive.dart';
+import '../../components/Draweer.dart';
+import '../../components/header.dart';
+import '../subs/SUbs_screen.dart';
 
 class Email extends StatefulWidget {
   const Email({super.key});

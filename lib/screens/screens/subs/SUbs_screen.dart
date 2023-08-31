@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 // import 'package:google_fonts/google_fonts.dart';
-import 'package:karhabtiapp_dashboard_admin/model/Get/counter.dart';
+import 'package:karhabtiapp_dashboard_admin/model/Get/countcontroller/counter.dart';
 // import 'package:karhabtiapp_dashboard_admin/model/table_controller.dart';
 import 'package:karhabtiapp_dashboard_admin/screens/buttons/dropdownbuttonProfile.dart';
 // import 'package:karhabtiapp_dashboard_admin/screens/components/tables/tableData.dart';
-import 'package:karhabtiapp_dashboard_admin/model/Get/boolStates.dart';
+import 'package:karhabtiapp_dashboard_admin/model/Get/countcontroller/boolStates.dart';
 import 'package:karhabtiapp_dashboard_admin/screens/components/tables/tablesConfig.dart';
 
 import '../../../constants/constants.dart';

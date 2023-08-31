@@ -4,16 +4,16 @@ import 'package:get/get.dart';
 import 'package:karhabtiapp_dashboard_admin/screens/components/dialogue/dialogueAddEmailWidget.dart';
 import 'package:karhabtiapp_dashboard_admin/screens/components/tables/tableDataEmail.dart';
 
-import '../../constants/constants.dart';
-import '../../model/Get/boolStates.dart';
-import '../../model/services/ReceiveEmailService.dart';
-import '../../model/Get/counter.dart';
-import '../../model/Get/listController.dart';
+import '../../../constants/constants.dart';
+import '../../../model/Get/countcontroller/boolStates.dart';
+import '../../../model/services/ReceiveEmailService.dart';
+import '../../../model/Get/countcontroller/counter.dart';
+import '../../../model/Get/listController.dart';
 // import '../buttons/dropdownbutton.dart';
 // import '../buttons/dropdownbuttonProfile.dart';
-import '../../model/services/SenderEmailService.dart';
-import '../components/tables/tableDataSendEmail.dart';
-import '../components/widgets/pres.dart';
+import '../../../model/services/SenderEmailService.dart';
+import '../../components/tables/tableDataSendEmail.dart';
+import '../../components/widgets/pres.dart';
 // import '../components/tables/tableDataUsers.dart';
 
 class Email_screen extends StatefulWidget {

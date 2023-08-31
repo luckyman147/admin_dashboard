@@ -9,11 +9,11 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:karhabtiapp_dashboard_admin/constants/constants.dart';
-import 'package:karhabtiapp_dashboard_admin/model/Get/textfieldbools.dart';
+import 'package:karhabtiapp_dashboard_admin/model/Get/countcontroller/textfieldbools.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:image_picker_platform_interface/image_picker_platform_interface.dart';
 import '../../../model/services/userService.dart';
-import '../../../model/Get/counter.dart';
+import '../../../model/Get/countcontroller/counter.dart';
 
 class MyDialog extends StatefulWidget {
   @override

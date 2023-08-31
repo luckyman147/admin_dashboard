@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:karhabtiapp_dashboard_admin/model/Get/Table_complainController.dart';
-import 'package:karhabtiapp_dashboard_admin/model/Get/counter.dart';
+import 'package:karhabtiapp_dashboard_admin/model/Get/tablescontroller/Table_complainController.dart';
+import 'package:karhabtiapp_dashboard_admin/model/Get/countcontroller/counter.dart';
 import 'package:karhabtiapp_dashboard_admin/model/services/ReceiveEmailService.dart';
 import 'package:karhabtiapp_dashboard_admin/model/services/complaint_service.dart';
 import 'package:karhabtiapp_dashboard_admin/screens/components/dialogue/dialogueAddEmailWidget.dart';
@@ -10,7 +10,7 @@ import 'package:karhabtiapp_dashboard_admin/screens/components/dialogue/dialogue
 import 'package:karhabtiapp_dashboard_admin/screens/functions/para.dart';
 
 import '../../../constants/constants.dart';
-import '../../../model/Get/Table_EmailController.dart';
+import '../../../model/Get/tablescontroller/Table_EmailController.dart';
 import '../../functions/date.dart';
 import '../dialogue/dialoguecomplaintInfoWidget.dart';
 

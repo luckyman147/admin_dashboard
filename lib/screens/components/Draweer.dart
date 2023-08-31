@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:karhabtiapp_dashboard_admin/model/Get/counter.dart';
+import 'package:karhabtiapp_dashboard_admin/model/Get/countcontroller/counter.dart';
 
 import '../../constants/constants.dart';
-import '../../model/Get/boolStates.dart';
+import '../../model/Get/countcontroller/boolStates.dart';
 
 class Draweer extends StatefulWidget {
   const Draweer({required this.page, required this.isActive, super.key});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:karhabtiapp_dashboard_admin/model/Get/counter.dart';
+import 'package:karhabtiapp_dashboard_admin/model/Get/countcontroller/counter.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:karhabtiapp_dashboard_admin/screens/buttons/dropdownbutton.dart';
 import 'package:karhabtiapp_dashboard_admin/screens/components/dialogue/dialogueAddWidget.dart';

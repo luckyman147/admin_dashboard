@@ -10,16 +10,16 @@ import 'package:karhabtiapp_dashboard_admin/screens/components/tables/tableData.
 // import '../components/barchar.dart';
 // import 'package:google_fonts/google_fonts.dart';
 
-import '../../constants/constants.dart';
-import '../../model/services/TransactionService.dart';
-import '../../model/Get/listController.dart';
-import '../../model/services/userService.dart';
-import '../buttons/dropdownbutton.dart';
-import '../buttons/dropdownbuttonProfile.dart';
-import '../components/tables/tablesConfig.dart';
-import '../components/widgets/Earning.dart';
-import '../components/header.dart';
-import '../components/widgets/leftside.dart';
+import '../../../constants/constants.dart';
+import '../../../model/services/TransactionService.dart';
+import '../../../model/Get/listController.dart';
+import '../../../model/services/userService.dart';
+import '../../buttons/dropdownbutton.dart';
+import '../../buttons/dropdownbuttonProfile.dart';
+import '../../components/tables/tablesConfig.dart';
+import '../../components/widgets/Earning.dart';
+import '../../components/header.dart';
+import '../../components/widgets/leftside.dart';
 
 class Dashboard_screen extends StatefulWidget {
   const Dashboard_screen({super.key});

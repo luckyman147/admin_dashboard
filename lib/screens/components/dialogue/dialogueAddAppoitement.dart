@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:karhabtiapp_dashboard_admin/model/Get/CalenderConfigController.dart';
+import 'package:karhabtiapp_dashboard_admin/model/Get/calenderController/CalenderConfigController.dart';
 import 'package:karhabtiapp_dashboard_admin/model/services/appoitementService.dart';
 // import 'package:karhabtiapp_dashboard_admin/screens/components/dialogue/color.dart';
 

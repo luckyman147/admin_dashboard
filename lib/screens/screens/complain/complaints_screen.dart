@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:karhabtiapp_dashboard_admin/screens/components/tables/tableCompliance.dart';
 
-import '../../constants/constants.dart';
-import '../../model/Get/counter.dart';
-import '../../model/services/complaint_service.dart';
-import '../components/widgets/pres.dart';
+import '../../../constants/constants.dart';
+import '../../../model/Get/countcontroller/counter.dart';
+import '../../../model/services/complaint_service.dart';
+import '../../components/widgets/pres.dart';
 
 class Complaints_screen extends StatefulWidget {
   const Complaints_screen({super.key});

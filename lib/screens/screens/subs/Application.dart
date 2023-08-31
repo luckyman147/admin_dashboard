@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:karhabtiapp_dashboard_admin/responsive.dart';
+import 'package:karhabtiapp_dashboard_admin/screens/screens/subs/users.dart';
 
-import '../../constants/constants.dart';
-import '../components/Draweer.dart';
-import '../components/header.dart';
-import '../dahsboard/dashboard_screen.dart';
+import '../../../constants/constants.dart';
+import '../../../responsive.dart';
+import '../../components/Draweer.dart';
+import '../../components/header.dart';
+import 'SUbs_screen.dart';
 
-class MainScreen extends StatelessWidget {
-  const MainScreen({super.key});
+class Subs extends StatefulWidget {
+  const Subs({required this.isActive, super.key});
+  final int isActive;
+  @override
+  State<Subs> createState() => _SubsState();
+}
 
-  final isActive = true;
+class _SubsState extends State<Subs> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +24,7 @@ class MainScreen extends StatelessWidget {
       children: [
         if (Responsive.isDesktop(context))
           Expanded(
-            child: Draweer(page: 1, isActive: 0),
+            child: Draweer(page: 2, isActive: widget.isActive),
           ),
         Expanded(
             flex: 5,
@@ -30,14 +33,14 @@ class MainScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     Header(
-                      text: 'Dashboard',
+                      text: (widget.isActive == 1) ? "Subscriptions" : "Users",
                     ),
                     SizedBox(
                         height: defaultPadding,
                         child: Container(
                           color: primaryColor,
                         )),
-                    Dashboard_screen(),
+                    widget.isActive == 1 ? Subs_screen() : User_screen(),
                   ],
                 ),
               ),

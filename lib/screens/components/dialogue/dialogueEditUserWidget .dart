@@ -10,8 +10,8 @@ import 'package:karhabtiapp_dashboard_admin/screens/buttons/dropdownbuttonProfil
 
 import '../../../model/Get/listController.dart';
 import '../../../model/services/userService.dart';
-import '../../../model/Get/counter.dart';
-import '../../../model/Get/textfieldbools.dart';
+import '../../../model/Get/countcontroller/counter.dart';
+import '../../../model/Get/countcontroller/textfieldbools.dart';
 
 class MyEditUserDialog extends StatefulWidget {
   final int id;

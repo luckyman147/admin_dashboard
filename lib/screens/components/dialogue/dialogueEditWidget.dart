@@ -5,8 +5,8 @@ import 'package:karhabtiapp_dashboard_admin/constants/constants.dart';
 import 'package:karhabtiapp_dashboard_admin/model/services/TransactionService.dart';
 
 import '../../../model/services/userService.dart';
-import '../../../model/Get/counter.dart';
-import '../../../model/Get/textfieldbools.dart';
+import '../../../model/Get/countcontroller/counter.dart';
+import '../../../model/Get/countcontroller/textfieldbools.dart';
 
 class MyEditDialog extends StatefulWidget {
   final int id;

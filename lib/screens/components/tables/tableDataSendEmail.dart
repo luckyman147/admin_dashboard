@@ -5,8 +5,8 @@ import 'package:karhabtiapp_dashboard_admin/model/services/SenderEmailService.da
 
 import '../../../constants/constants.dart';
 // import '../../../model/Get/Table_EmailController.dart';
-import '../../../model/Get/Table_SendEmailController.dart';
-import '../../../model/Get/counter.dart';
+import '../../../model/Get/tablescontroller/Table_SendEmailController.dart';
+import '../../../model/Get/countcontroller/counter.dart';
 import '../../functions/date.dart';
 import '../../functions/para.dart';
 import '../dialogue/dialogueAddEmailWidget.dart';
