@@ -6,11 +6,13 @@ module.exports=(sequelize,Datatype)=>{
         Date:{
             type:Datatype.DATEONLY,
             allowNull:false,
+            defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+
             
         },
 
-        Total:{
-            type:Datatype.STRING,
+        Identity:{
+            type:Datatype.BOOLEAN,
             allowNull:false,
             
         },

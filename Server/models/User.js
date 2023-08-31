@@ -21,15 +21,52 @@ module.exports=(sequelize,Datatype)=>{
             
             
         },
+        password:{
+            type:Datatype.STRING,
+            allowNull:false,
+            
+        },
 
         JoiningDate:{
             type:Datatype.DATEONLY,
+            
+            defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+
+            
+        },
+        BirthDate:{
+            type:Datatype.DATEONLY,
             allowNull:false,
             
+        },
+        userImage: {
+            type: Datatype.BLOB,
+            allowNull: true,
+          },
+        Genre:{
+            type:Datatype.STRING,
+            allowNull:false,
+
+        },
+        Sex:{
+            type:Datatype.STRING,
+            allowNull:false,
+            values:['Male,Female,other']
+
+        },
+        Adress:{
+            type:Datatype.STRING,
+            allowNull:true,
+
+
         }
+
     })
  User.associate=models=>{
     User.hasMany(models.Transaction,{
+        onDelete:'cascade'
+    }),
+    User.hasMany(models.Complaints,{
         onDelete:'cascade'
     })
   

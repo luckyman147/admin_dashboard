@@ -7,9 +7,11 @@ import 'package:karhabtiapp_dashboard_admin/model/Get/NumberController.dart';
 import 'package:karhabtiapp_dashboard_admin/model/services/TransactionService.dart';
 import 'package:karhabtiapp_dashboard_admin/model/Get/boolStates.dart';
 import 'package:karhabtiapp_dashboard_admin/model/Get/counter.dart';
+import 'package:karhabtiapp_dashboard_admin/model/services/complaint_service.dart';
 
 import 'package:karhabtiapp_dashboard_admin/model/services/userService.dart';
 import 'package:karhabtiapp_dashboard_admin/screens/main/Application.dart';
+import 'package:karhabtiapp_dashboard_admin/screens/main/Complaint.dart';
 import 'package:karhabtiapp_dashboard_admin/screens/main/Email.dart';
 // import 'package:karhabtiapp_dashboard_admin/screens/main/Application.dart';
 // import 'package:karhabtiapp_dashboard_admin/screens/main/Email.dart';
@@ -52,6 +54,7 @@ class _MainAppState extends State<MainApp> {
                   ),
               '/users': (context) => Subs(isActive: 2),
               '/email': (context) => Email(),
+              '/Complaints': (context) => Complaint(),
             },
             theme: ThemeData.light().copyWith(
                 scaffoldBackgroundColor: primaryColor,
@@ -67,6 +70,7 @@ class _MainAppState extends State<MainApp> {
               // Get.put(TableStatesController());
               Get.put(TransactionController());
               Get.put(UserController());
+              Get.put(ComplainController());
               Get.put(CounterController());
             }),
             home: MainScreen());

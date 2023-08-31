@@ -5,10 +5,19 @@ const bcrypt=require('bcrypt')
 const UserController=require('../controllers/userController')
 const jwt=require('jsonwebtoken')
 route.post('/AddUser',(req,res,next)=>{
-    UserController.register(req.body.Username,req.body.email,
+    UserController.register(
+        req.body.Username,
+        req.body.email,
         req.body.Phone,
         req.body.UserProfile,
-        req.body.JoiningDate
+        req.body.password,
+        req.body.JoiningDate,
+        req.body.BirthDate,
+        req.body.userImage,
+        req.body.Genre,
+        req.body.Sex,
+        req.body.Adress,
+
         
         
         ).then(
@@ -41,7 +50,15 @@ route.patch('/user/:id',(req,res,next)=>{
         email:req.body.email,
         Phone:req.body.Phone,
         UserProfile:req.body.UserProfile,
-        JoiningDate:req.body.JoiningDate
+        password:req.body.password,
+        JoiningDate:req.body.JoiningDate,
+        BirthDate:req.body.BirthDate,
+        userImage:req.body.userImage,
+        Genre:req.body.Genre,
+        Sex:req.body.Sex,
+
+        Adress:req.body.Adress
+
     
     },{where:{id:req.params.id}}).
         then((response)=>res.status(200).send(response)).

@@ -82,10 +82,11 @@ class _DraweerState extends State<Draweer> {
                       isactive: widget.page == 2),
                   (boolController.isActive)
                       ? Card(
+                          margin: EdgeInsets.all(8),
                           elevation: 0,
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               local(
                                   text: "Subscriptions",
@@ -149,10 +150,16 @@ class _DraweerState extends State<Draweer> {
                       press: () {},
                       isactive: widget.page == 5),
                   ListTilewithArrow(
-                      title: "Utility",
+                      title: "Complaints",
                       numpage: 6,
-                      svgsrc: "assets/icons/utility.svg",
-                      press: () {},
+                      svgsrc: "assets/icons/info.svg",
+                      press: () {
+                        if (boolController.isActive) {
+                          boolController.resetTo0();
+                          boolController.deactivate();
+                        }
+                        Get.toNamed("/Complaints");
+                      },
                       isactive: widget.page == 6),
                   ListTilewithArrow(
                       title: "Tables",
@@ -187,30 +194,36 @@ class _DraweerState extends State<Draweer> {
       required int active,
       required VoidCallback functio}) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 50.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Container(
-            width: 5,
-            height: 5,
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: (active == 1 || active == 2) ? black : textColor),
+      padding: const EdgeInsets.symmetric(),
+      child: Align(
+        alignment: Alignment.topCenter,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                width: 5,
+                height: 5,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: (active == 1 || active == 2) ? black : textColor),
+              ),
+              TextButton(
+                  onPressed: functio,
+                  child: Text(
+                    text,
+                    style: TextStyle(
+                        color: (active == 1 || active == 2) ? black : textColor,
+                        fontFamily: GoogleFonts.poppinsTextTheme.toString(),
+                        fontSize: 16,
+                        fontWeight: (active == 1 || active == 2)
+                            ? FontWeight.bold
+                            : FontWeight.normal),
+                  )),
+            ],
           ),
-          TextButton(
-              onPressed: functio,
-              child: Text(
-                text,
-                style: TextStyle(
-                    color: (active == 1 || active == 2) ? black : textColor,
-                    fontFamily: GoogleFonts.poppinsTextTheme.toString(),
-                    fontSize: 16,
-                    fontWeight: (active == 1 || active == 2)
-                        ? FontWeight.bold
-                        : FontWeight.normal),
-              )),
-        ],
+        ),
       ),
     );
   }

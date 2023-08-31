@@ -10,6 +10,7 @@ import 'package:karhabtiapp_dashboard_admin/screens/functions/para.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 import '../../../constants/constants.dart';
+import '../../components/dialogue/dialogueAddAppoitement.dart';
 
 class Calendar_screen_month extends StatefulWidget {
   const Calendar_screen_month({
@@ -38,148 +39,105 @@ class _Calendar_screen_monthState extends State<Calendar_screen_month> {
       padding: const EdgeInsets.symmetric(
         vertical: 10.0,
       ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-              flex: 2,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    decoration: box,
-                    width: 300,
-                    height: 300,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Obx(() => CalendBar(
-                                  "Month", calendercontroller.isMonthView, () {
-                                calendercontroller.setMonthView();
-                                calendercontroller
-                                    .updateAllowedViews([CalendarView.month]);
-                                calendercontroller
-                                    .changeView(CalendarView.month);
-                              })),
-                          Obx(() => CalendBar(
-                                  "Week", calendercontroller.isWeekView, () {
-                                calendercontroller.setWeekView();
-                                calendercontroller
-                                    .updateAllowedViews([CalendarView.week]);
-
-                                calendercontroller
-                                    .changeView(CalendarView.week);
-                              })),
-                          Obx(() =>
-                              CalendBar("Day", calendercontroller.isDayView,
-                                  () async {
-                                calendercontroller.setDayView();
-                                calendercontroller
-                                    .updateAllowedViews([CalendarView.day]);
-                                calendercontroller.changeView(CalendarView.day);
-                              })),
-                          Obx(() => CalendBar(
-                                  "Schedule", calendercontroller.isScheduleView,
-                                  () async {
-                                calendercontroller.setScheduleView();
-                                calendercontroller.updateAllowedViews(
-                                    [CalendarView.schedule]);
-                                calendercontroller
-                                    .changeView(CalendarView.schedule);
-                              })),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0),
-                    child: Container(
-                      decoration: box,
-                      width: 300,
-                      height: media.height * .478,
-                      child: Schedule(),
-                    ),
-                  ),
-                ],
-              )),
-          const SizedBox(
-            width: 10,
-          ),
-          Expanded(
-              flex: 5,
-              child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 6.0, horizontal: 20),
-                  child: Container(
-                    height: media.height * 0.858,
-                    decoration: box,
-                    child: Padding(
-                      padding: const EdgeInsets.all(22.0),
-                      child: Flex(
-                        direction: Axis.vertical,
-                        children: [
-                          Flexible(
-                            flex: 1,
-                            fit: FlexFit.tight,
-                            child: Obx(
-                              () => SfCalendar(
-                                key: UniqueKey(),
-                                controller:
-                                    calendercontroller.calendarController,
-
-                                headerHeight: 80,
-                                allowedViews: calendercontroller.allowedViews,
-                                allowViewNavigation: true,
-                                viewNavigationMode: ViewNavigationMode.snap,
-                                todayHighlightColor: yellow,
-                                dragAndDropSettings: DragAndDropSettings(),
-                                allowDragAndDrop: true,
-                                headerDateFormat: "MMM,yyy",
-                                timeSlotViewSettings: Timesettings(),
-                                monthViewSettings: MonthviewSetting(),
-                                appointmentBuilder:
-                                    (context, calendarAppointmentDetails) {
-                                  final Appointment meeting =
-                                      calendarAppointmentDetails
-                                          .appointments.first;
-                                  return appoitementBuilder(meeting);
-                                },
-                                viewHeaderHeight: 79,
-                                // allowAppointmentResize: true,
-                                viewHeaderStyle: const ViewHeaderStyle(
-                                  dayTextStyle: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                                headerStyle: Headerstyle(),
-                                appointmentTextStyle: TextStyle(color: black),
-                                allowAppointmentResize: true,
-                                dataSource: _getCalendarDataSource(
-                                    appoitementController.filteredAppoitments),
-                                //schedule
-                                scheduleViewSettings: ScheduleViewSettings(
-                                  appointmentItemHeight: 70,
-                                  hideEmptyScheduleWeek: true,
-                                  monthHeaderSettings: MonthHeader(),
-                                  weekHeaderSettings: weekHeader(),
-                                ),
-                                view: calendercontroller.currentView,
-                                showNavigationArrow: true,
-                                cellBorderColor: textColor,
-                              ),
+      child: Expanded(
+          child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 6.0, horizontal: 20),
+              child: Container(
+                height: media.height * 0.858,
+                decoration: box,
+                child: Padding(
+                  padding: const EdgeInsets.all(22.0),
+                  child: Flex(
+                    direction: Axis.vertical,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 30.0),
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                padding: EdgeInsets.all(15),
+                                backgroundColor:
+                                    Color.fromRGBO(27, 157, 134, 1),
+                                // elevation: 1,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20))),
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (builder) =>
+                                      showAddAppointmentDialog());
+                            },
+                            child: Text(
+                              "Create New event",
+                              style: TextStyle(
+                                  fontFamily: styletextP0P,
+                                  fontSize: 21,
+                                  fontWeight: FontWeight.w600),
                             ),
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ))),
-        ],
-      ),
+                      Flexible(
+                        flex: 2,
+                        fit: FlexFit.tight,
+                        child: Obx(
+                          () => SfCalendar(
+                            key: UniqueKey(),
+                            controller: calendercontroller.calendarController,
+
+                            headerHeight: 80,
+                            allowedViews: [
+                              CalendarView.month,
+                              CalendarView.week,
+                              CalendarView.day
+                            ],
+                            allowViewNavigation: true,
+                            viewNavigationMode: ViewNavigationMode.snap,
+                            todayHighlightColor: yellow,
+                            dragAndDropSettings: DragAndDropSettings(),
+                            allowDragAndDrop: true,
+                            headerDateFormat: "MMM,yyy",
+                            timeSlotViewSettings: Timesettings(),
+                            monthViewSettings: MonthviewSetting(),
+                            appointmentBuilder:
+                                (context, calendarAppointmentDetails) {
+                              final Appointment meeting =
+                                  calendarAppointmentDetails.appointments.first;
+                              return appoitementBuilder(meeting);
+                            },
+                            viewHeaderHeight: 79,
+                            // allowAppointmentResize: true,
+                            viewHeaderStyle: const ViewHeaderStyle(
+                              dayTextStyle: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            headerStyle: Headerstyle(),
+                            appointmentTextStyle: TextStyle(color: black),
+                            allowAppointmentResize: true,
+                            dataSource: _getCalendarDataSource(
+                                appoitementController.filteredAppoitments),
+                            //schedule
+                            scheduleViewSettings: ScheduleViewSettings(
+                              appointmentItemHeight: 70,
+                              hideEmptyScheduleWeek: true,
+                              monthHeaderSettings: MonthHeader(),
+                              weekHeaderSettings: weekHeader(),
+                            ),
+                            view: calendercontroller.currentView,
+                            showNavigationArrow: true,
+                            cellBorderColor: textColor,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ))),
     );
   }
 

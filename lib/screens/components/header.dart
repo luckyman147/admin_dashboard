@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:karhabtiapp_dashboard_admin/screens/buttons/badgedropdownButton.dart';
 
@@ -128,13 +129,16 @@ class Header extends StatelessWidget {
                             Icon(Icons.arrow_circle_right_outlined,
                                 color: secondaryColor),
                             InkWell(
+                                onTap: () {
+                                  Get.toNamed("/Complaints");
+                                },
                                 child: Text(
-                              "See More",
-                              style: TextStyle(
-                                  color: secondaryColor,
-                                  fontSize: 14,
-                                  decoration: TextDecoration.underline),
-                            ))
+                                  "See More",
+                                  style: TextStyle(
+                                      color: secondaryColor,
+                                      fontSize: 14,
+                                      decoration: TextDecoration.underline),
+                                ))
                           ],
                         ),
                         value: "value",

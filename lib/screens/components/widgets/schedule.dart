@@ -95,29 +95,6 @@ class _ScheduleState extends State<Schedule> {
               },
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10.0),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.all(15),
-                  backgroundColor: Color.fromRGBO(27, 157, 134, 1),
-                  // elevation: 1,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20))),
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (builder) => showAddAppointmentDialog());
-              },
-              child: Text(
-                "Create New event",
-                style: TextStyle(
-                    fontFamily: styletextP0P,
-                    fontSize: 21,
-                    fontWeight: FontWeight.w600),
-              ),
-            ),
-          )
         ],
       ),
     );

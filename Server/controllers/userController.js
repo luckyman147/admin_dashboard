@@ -10,33 +10,78 @@ const SchemaValidation=joi.object({
     Username:joi.string().required(),
     email:joi.string().email().required(),
     Phone:joi.string().regex(/^\d{8}$/)
-    .required()
+    .required(),
+    UserProfile:joi.string().valid('B2B','B2C'),
+    password:joi.string().required(),
+    JoiningDate:joi.date().required(),
+    BirthDate:joi.date().required(),
+    userImage:joi.string(),
+    Genre:joi.string().required(),
+    Sex: joi.string().valid('Male','Female','Other'),
+    Adress:joi.string()
+
+
 })
-exports.register=(Username,email,Phone,UserProfile,JoiningDate)=>{
-    return new Promise((resolve,reject)=>{
-        let validation=SchemaValidation.validate({Username,email,Phone})
-        if(validation.error){
-            reject(validation.error.details[0].message)
-        }
-        db.User.count({where:{email:email}}).then(
-            (count)=>{
-                if(count>0){
-                    reject({message:'email already exists'})
-                }
-                else{
-                    
-                        db.User.create({Username:Username,
-                            email:email,
-                            Phone:Phone,UserProfile:UserProfile,JoiningDate:JoiningDate}).then(
-                                (response)=>resolve(response)
-                            ).catch((err)=> reject(err))
-                    }
-                    
-                }
-            
-        )
 
-    })
-}
-
+exports.register = async (
+    Username,
+    email,
+    Phone,
+    
+    UserProfile,
+    password,
+    JoiningDate,
+    BirthDate,
+    userImage,
+    Genre,
+    Sex,
+    Adress
+  ) => {
+    try {
+      const validation = SchemaValidation.validate({
+        Username,
+        email,
+        Phone,
+        UserProfile,
+        password,
+        JoiningDate,
+        BirthDate,
+        userImage,
+        Genre,
+        Sex,
+        Adress,
+      });
+  
+      if (validation.error) {
+        throw new Error(validation.error.details[0].message);
+      }
+  
+      const count = await db.User.count({ where: { email: email } });
+  
+      if (count > 0) {
+        throw new Error('Email already exists');
+      }
+  
+      const hashedPassword = bcrypt.hashSync(password, 10);
+  
+      const newUser = await db.User.create({
+        Username,
+        email,
+        Phone,
+        UserProfile,
+        password: hashedPassword,
+        JoiningDate,
+        BirthDate,
+        userImage,
+        Genre,
+        Sex,
+        Adress,
+      });
+  
+      return newUser;
+    } catch (error) {
+      throw error;
+    }
+  };
+  
 

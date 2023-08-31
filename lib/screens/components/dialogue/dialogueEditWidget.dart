@@ -13,7 +13,7 @@ class MyEditDialog extends StatefulWidget {
   final String date;
   final String userName;
   final String userProfil;
-  final String total;
+  final bool Identity;
   final String paymentStatus;
   final int Userid;
 
@@ -23,7 +23,7 @@ class MyEditDialog extends StatefulWidget {
       required this.id,
       required this.userName,
       required this.userProfil,
-      required this.total,
+      required this.Identity,
       required this.paymentStatus,
       required this.Userid});
   @override
@@ -162,7 +162,8 @@ class _MyEditDialogState extends State<MyEditDialog> {
                     ),
                   ],
                 ),
-                CustomTextfield(widget.total, "Total"),
+                CustomTextfield(
+                    widget.Identity ? "verified" : "Not verified", "Identity"),
                 description("UserId", "${widget.Userid}"),
                 description("Username", widget.userName),
                 description("User Profile", widget.userProfil),
@@ -204,7 +205,7 @@ class _MyEditDialogState extends State<MyEditDialog> {
             ),
             TextButton(
               onPressed: () {
-                textfieldcontroller.reset(widget.total);
+                // textfieldcontroller.reset(widget.Identity);
                 // Close the dialog
                 Navigator.of(context).pop();
               },
@@ -313,7 +314,7 @@ class _MyEditDialogState extends State<MyEditDialog> {
     // For example:
     final Map<String, dynamic> newTrans = {
       'Date': date,
-      'Total': textfieldcontroller.textEditingController.text,
+      'Identity': textfieldcontroller.textEditingController.text,
       'PaymentStatus': chekked,
       'UserId': widget.Userid,
     };
@@ -321,7 +322,7 @@ class _MyEditDialogState extends State<MyEditDialog> {
     // await userController.addUser(newUser);
     bool success =
         await transController.editTransactionPaymentStatus(widget.id, newTrans);
-    showCustomSnackbar(success, "Edited","Transaction");
+    showCustomSnackbar(success, "Edited", "Transaction");
     // counter.increment();
 
     // Call your addUser function or update logic here

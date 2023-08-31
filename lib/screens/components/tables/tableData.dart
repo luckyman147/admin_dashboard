@@ -78,7 +78,7 @@ class _TabledState extends State<Tabled> {
                 DataColumn(label: Text('Date', style: column)),
                 DataColumn(label: Text('User Name', style: column)),
                 DataColumn(label: Text('User Profile', style: column)),
-                DataColumn(label: Text('Total', style: column)),
+                DataColumn(label: Text('Identity', style: column)),
                 DataColumn(label: Text('Payment Status', style: column)),
                 DataColumn(label: Text('Actions', style: column)),
               ],
@@ -105,14 +105,25 @@ class _TabledState extends State<Tabled> {
                         DataCell(Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text(
-                              widget.tableData[index]['Total'],
-                              style: columnRO,
+                            Container(
+                              width: 10,
+                              height: 10,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: widget.tableData[index]['Identity']
+                                      ? pourcentage
+                                      : Colors.red),
                             ),
-                            Text(
-                              "TND",
-                              style: columnRO,
-                            )
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 3.0),
+                              child: Text(
+                                widget.tableData[index]['Identity']
+                                    ? "Verified"
+                                    : "Not verified",
+                                style: columnRO,
+                              ),
+                            ),
                           ],
                         )),
                         DataCell(Container(
@@ -171,8 +182,9 @@ class _TabledState extends State<Tabled> {
                                                 userProfil:
                                                     widget.tableData[index]
                                                         ['UserProfile'],
-                                                total: widget.tableData[index]
-                                                    ['Total'],
+                                                Identity:
+                                                    widget.tableData[index]
+                                                        ['Identity'],
                                                 paymentStatus:
                                                     widget.tableData[index]
                                                         ['PaymentStatus'],

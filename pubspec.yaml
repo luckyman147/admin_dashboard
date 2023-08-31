@@ -40,8 +40,10 @@ dependencies:
   get:
   flutter_colorpicker: 
   analog_clock_picker: ^0.0.6
-
-
+  file_picker:
+  bcrypt:
+  image_picker:
+  image_picker_windows: 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
@@ -96,6 +98,7 @@ flutter:
     - assets/icons/arrow_bottom.svg
     - assets/icons/Edit.svg
     - assets/icons/sent.svg
+    - assets/icons/info.svg
     
   
 

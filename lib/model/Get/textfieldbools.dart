@@ -4,17 +4,24 @@ import 'package:get/get.dart';
 class TextFieldController extends GetxController {
   RxBool isTextFieldEnabled = false.obs;
   RxBool isUserNameEnabled = false.obs;
+  RxBool IsPasswordEnabled = false.obs;
+  RxBool isAdressEnabled = false.obs;
   // RxBool isEmailEnabled = false.obs;
   RxBool isPhoneEnabled = false.obs;
 
   TextEditingController textEditingController = TextEditingController();
   TextEditingController UserNameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
+  TextEditingController PasswordController = TextEditingController();
+  TextEditingController AdressController = TextEditingController();
+
   TextEditingController phoneController = TextEditingController();
   RxBool paymentP = false.obs;
   RxBool paymentUn = false.obs;
   RxBool paymentChange = false.obs;
   RxBool userIsB2C = false.obs;
+  RxBool userIsMale = false.obs;
+  RxBool userIsFemale = false.obs;
+
   RxBool userIsB2B = false.obs;
   Rx<DateTime> selectedDate = Rx<DateTime>(DateTime.now());
 
@@ -50,6 +57,16 @@ class TextFieldController extends GetxController {
   void activateB2C(value) {
     userIsB2B.value = !value;
     userIsB2C.value = value;
+  }
+
+  void activateMale(value) {
+    userIsMale.value = value;
+    userIsFemale.value = !value;
+  }
+
+  void activateFemale(value) {
+    userIsMale.value = !value;
+    userIsFemale.value = value;
   }
 
   void startEditing(String initialValue) {

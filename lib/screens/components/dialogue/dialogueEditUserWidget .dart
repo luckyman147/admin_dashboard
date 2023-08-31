@@ -1,29 +1,37 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:karhabtiapp_dashboard_admin/constants/constants.dart';
 import 'package:karhabtiapp_dashboard_admin/model/services/TransactionService.dart';
+import 'package:badges/badges.dart' as badges;
+import 'package:karhabtiapp_dashboard_admin/screens/buttons/dropdownbuttonProfile.dart';
 
+import '../../../model/Get/listController.dart';
 import '../../../model/services/userService.dart';
 import '../../../model/Get/counter.dart';
 import '../../../model/Get/textfieldbools.dart';
 
 class MyEditUserDialog extends StatefulWidget {
   final int id;
-  final String userName;
-  final String JoiningDate;
-  final String userProfil;
-  final String Phone;
-  final String email;
+
+  final String userName; //Done
+  final String ImageUrl; //Done
+  final String Genre;
+  final String Phone; //Done
+  final String adresse; //done
+  final String password; //done
 
   MyEditUserDialog({
     super.key,
-    required this.id,
     required this.userName,
-    required this.email,
+    required this.Genre,
     required this.Phone,
-    required this.userProfil,
-    required this.JoiningDate,
+    required this.adresse,
+    required this.password,
+    required this.ImageUrl,
+    required this.id,
   });
   @override
   _MyEditUserDialogState createState() => _MyEditUserDialogState();
@@ -34,8 +42,8 @@ class _MyEditUserDialogState extends State<MyEditUserDialog> {
   @override
   void initState() {
     super.initState();
-    textfieldcontroller
-        .updateSelectedDate(parseFormattedDateString(widget.JoiningDate));
+    // textfieldcontroller
+    // .updateSelectedDate(parseFormattedDateString(widget.JoiningDate));
 
     // print(textfieldcontroller.selectedDate.value);
     // _updatedTime = parseFormattedDateString(widget.date);
@@ -47,6 +55,7 @@ class _MyEditUserDialogState extends State<MyEditUserDialog> {
   final counter = Get.put(CounterController());
 
   TextEditingController textFieldController5 = TextEditingController();
+  final dropdownController = Get.put(DropdownController());
 
   // final _formKey = GlobalKey<FormState>();
   @override
@@ -54,11 +63,6 @@ class _MyEditUserDialogState extends State<MyEditUserDialog> {
     // DateTime selectedDate = parseFormattedDateString(widget.date)
     final media = MediaQuery.sizeOf(context);
     // DateTime selectedDate = parseFormattedDateString();
-    if (widget.userProfil == "B2B") {
-      textfieldcontroller.activateB2B(true);
-    } else {
-      textfieldcontroller.activateB2C(true);
-    }
 
     // print('Date ${textfieldcontroller.selectedDate.value}');
     var UserNameENabled = textfieldcontroller.isUserNameEnabled;
@@ -67,7 +71,14 @@ class _MyEditUserDialogState extends State<MyEditUserDialog> {
 
     return Obx(() {
       return AlertDialog(
-        title: Text('My Dialog'),
+        title: Text(
+          'Edit User',
+          style: TextStyle(
+              color: secondaryColor,
+              fontFamily: styletext,
+              fontSize: 27,
+              fontWeight: FontWeight.w800),
+        ),
         content: Container(
           height: media.height * .7,
           child: Column(
@@ -76,38 +87,30 @@ class _MyEditUserDialogState extends State<MyEditUserDialog> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Center(
-                child: Text(
-                  "Edit User",
-                  style: TextStyle(
-                      color: secondaryColor,
-                      fontFamily: styletext,
-                      fontSize: 27,
-                      fontWeight: FontWeight.w800),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 12.0,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      "ID:",
-                      style: TextStyle(color: textColor, fontSize: 20),
+                child: badges.Badge(
+                  onTap: () {},
+                  badgeContent: Icon(
+                    Icons.edit,
+                    size: 18,
+                    color: Colors.white,
+                  ),
+                  badgeStyle: const badges.BadgeStyle(
+                    badgeColor: yellow,
+                    padding: EdgeInsets.all(5),
+                    shape: badges.BadgeShape.circle,
+                    elevation: 0,
+                  ),
+                  position: badges.BadgePosition.bottomEnd(bottom: 2, end: -1),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(color: secondaryColor, width: 5),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 30.0),
-                      child: Text(
-                        "#KA${widget.id}",
-                        style: TextStyle(
-                            color: black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20),
-                      ),
+                    child: CircleAvatar(
+                      radius: 40,
+                      backgroundImage: NetworkImage(widget.ImageUrl),
                     ),
-                  ],
+                  ),
                 ),
               ),
               Row(
@@ -137,7 +140,7 @@ class _MyEditUserDialogState extends State<MyEditUserDialog> {
                   ),
                 ],
               ),
-              description("Email", widget.email),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -157,26 +160,84 @@ class _MyEditUserDialogState extends State<MyEditUserDialog> {
                       textfieldcontroller.UserstartEditing),
                 ],
               ),
-              // CustomTextfield(widget.email, "email"),
-              // CustomTextfield(widget.Phone, "Phone"),
-
-              // CustomTextfield(textFieldController4, 'UserProfile'),
-
-              Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('UserProfile:', style: TextStyle(color: textgrey)),
-                    checkbox("B2B", textfieldcontroller.userIsB2B.value,
-                        textfieldcontroller.activateB2B),
-                    checkbox("B2C", textfieldcontroller.userIsB2C.value,
-                        textfieldcontroller.activateB2C),
-                  ],
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: Text(
+                      "Password:",
+                      style: TextStyle(color: textColor, fontSize: 16),
+                    ),
+                  ),
+                  CustomTextfield(
+                      widget.password,
+                      "Password",
+                      textfieldcontroller.IsPasswordEnabled,
+                      textfieldcontroller.PasswordController,
+                      textfieldcontroller.stopUserEditing,
+                      textfieldcontroller.UserstartEditing),
+                ],
               ),
-              JoiningDateField(context),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: Text(
+                      "Adress:",
+                      style: TextStyle(color: textColor, fontSize: 16),
+                    ),
+                  ),
+                  CustomTextfield(
+                      widget.adresse,
+                      "Adress",
+                      textfieldcontroller.isAdressEnabled,
+                      textfieldcontroller.AdressController,
+                      textfieldcontroller.stopUserEditing,
+                      textfieldcontroller.UserstartEditing),
+                ],
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: Text(
+                      "Genre:",
+                      style: TextStyle(color: textColor, fontSize: 16),
+                    ),
+                  ),
+                  DropdownButton2(
+                    underline: Container(),
+                    value: dropdownController.service.value,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                        fontFamily: GoogleFonts.plusJakartaSans.toString(),
+                        fontWeight: FontWeight.w400),
+                    onChanged: (value) {
+                      dropdownController.upodateService(value!);
+                    },
+                    // borderRadius: BorderRadius.circular(20),
+                    items: dropdownController.services.map((e) {
+                      return DropdownMenuItem(
+                        child: Container(
+                          padding: EdgeInsets.symmetric(horizontal: 9),
+                          child: Text(
+                            e,
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        ),
+                        value: e,
+                      );
+                    }).toList(),
+                    // icon: Icon(
+                    //   Icons.arrow_drop_down,
+                    //   color: Colors.black,
+                    // ),
+                  )
+                ],
+              )
 
               // SizedBox(height: 20),
             ],
@@ -200,6 +261,11 @@ class _MyEditUserDialogState extends State<MyEditUserDialog> {
                   widget.Phone,
                   textfieldcontroller.isPhoneEnabled,
                   textfieldcontroller.phoneController);
+              textfieldcontroller.resetUser(
+                  widget.password,
+                  textfieldcontroller.IsPasswordEnabled,
+                  textfieldcontroller.PasswordController);
+              //              textfieldcontroller.resetUser(" ", false ,textfieldcontroller.);
 
               // Close the dialog
               Navigator.of(context).pop();
@@ -306,6 +372,7 @@ class _MyEditUserDialogState extends State<MyEditUserDialog> {
           Expanded(
               child: isactivated.value
                   ? TextField(
+                      obscureText: isactivated.value,
                       // enabled: textfieldcontroller.isTextFieldEnabled.value,
                       controller: controlller,
                       style: TextStyle(color: black),
@@ -333,7 +400,10 @@ class _MyEditUserDialogState extends State<MyEditUserDialog> {
                     )
                   : Text(
                       controlller.text,
-                      style: TextStyle(color: yellow, fontSize: 16),
+                      style: TextStyle(
+                          color: black,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600),
                     )),
           IconButton(
             icon: Icon(isactivated.value ? Icons.check : Icons.edit),
@@ -373,15 +443,17 @@ class _MyEditUserDialogState extends State<MyEditUserDialog> {
     // For example:
     final Map<String, dynamic> editedUser = {
       "Username": textfieldcontroller.UserNameController.text,
-      "email": widget.email,
+      "Password": textfieldcontroller.PasswordController.text,
+      "Adresse": textfieldcontroller.AdressController.text,
+      "Genre": dropdownController.service.value,
+      // "email": widget.email,
       'Phone': textfieldcontroller.phoneController.text,
-      "UserProfile": chekked,
-      "JoiningDate": date
+      // "UserProfile": chekked,
     };
     print(editedUser);
     bool success = await userController.editUser(widget.id, editedUser);
 
-    showCustomSnackbar(success, "Edited","User");
+    showCustomSnackbar(success, "Edited", "User");
     // counter.increment();
 
     // Call your addUser function or update logic here

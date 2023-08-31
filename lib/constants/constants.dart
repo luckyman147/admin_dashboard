@@ -28,7 +28,17 @@ final box = BoxDecoration(
         offset: Offset(0, 6))
   ],
 );
-
+final dec = BoxDecoration(
+  color: Color.fromRGBO(255, 255, 255, 1),
+  borderRadius: BorderRadius.circular(10),
+  border: Border.all(
+      color: Color.fromRGBO(
+    94,
+    94,
+    94,
+    1,
+  )),
+);
 Padding elevatedNE(String text, VoidCallback action) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 4.0),

@@ -5,7 +5,7 @@ const { Op } = require('sequelize');
 
 route.post('/addTransaction',(req,res,next)=>{
     db.Transaction.create({Date:req.body.Date,
-        Total:req.body.Total,
+        Identity:req.body.Identity,
         PaymentStatus:req.body.PaymentStatus,
         UserId:req.body.UserId
         }).
@@ -39,7 +39,7 @@ route.get('/searchTransactions', (req, res, next) => {
 route.get('/transactions',(req,res,next)=>{
     db.Transaction.findAll({include:[    {
         model: db.User,
-        attributes: ['id','Username', 'UserProfile'] // Include only specific attributes
+        attributes: ['id','Username', 'UserProfile',"Adresse"] // Include only specific attributes
       }]}).
     then((response)=>res.status(200).send(response)).
     catch((err)=> res.status(400).send(err))
@@ -48,7 +48,7 @@ route.get('/transactions',(req,res,next)=>{
 route.patch('/transaction/:id',(req,res,next)=>{
     db.Transaction.update({
         Date:req.body.Date,
-        Total:req.body.Total,
+        Identity:req.body.Identity,
         PaymentStatus:req.body.PaymentStatus,
         UserId:req.body.UserId
     },{where:{id:req.params.id}}).
