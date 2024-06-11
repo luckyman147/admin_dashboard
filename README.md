@@ -22,10 +22,12 @@ The dashboard is fully optimized for mobile devices, ensuring that users can acc
 This mobile-friendly design improves the overall user experience by offering flexibility and accessibility.1
 
 ## Screenshots
-
 ![App Screenshot](assets/img/1718140652627-6c43f2c0-84fc-4a09-b24b-55c0e84b71f0_1.jpg)
 
-![App Screenshot](assets/img/1718140652627-6c43f2c0-84fc-4a09-b24b-55c0e84b71f0_1.jpg)
+![App Screenshot](assets/img/1718140652627-6c43f2c0-84fc-4a09-b24b-55c0e84b71f0_10.jpg)
 
-![App Screenshot](assets/img/1718140652627-6c43f2c0-84fc-4a09-b24b-55c0e84b71f0_1.jpg)
+![App Screenshot](assets/img/1718140652627-6c43f2c0-84fc-4a09-b24b-55c0e84b71f0_7.jpg)
+
+
+![App Screenshot](assets/img/1718140652627-6c43f2c0-84fc-4a09-b24b-55c0e84b71f0_9.jpg)
 
